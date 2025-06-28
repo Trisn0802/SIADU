@@ -2,11 +2,6 @@
 
 @section('content')
     <!-- contentAwal -->
-    {{-- <div class="alert alert-success" role="alert">
-                        <h4 class="alert-heading">Selamat Datang, {{ Auth::user()->nama }}</h4> --}}
-                        {{-- <hr>
-                        <p class="mb-0">Ada masalah pada infrastruktur di dekat lokasi anda segera laporkan!</p> --}}
-                    {{-- </div> --}}
     <div class="row">
         <div class="col-12
         {{-- offset-2 --}}

@@ -51,7 +51,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus laborum qu
                         <form action="{{ route('backend.register') }}" method="post">
                             @csrf
                             <div class="form-group mb-3">
-                                <label class="d-flex gap-1" for="nik_user">NIK<p style="color: red">*</p></label>
+                                <label class="d-flex gap-1" for="nik_user">NIK<p style="color: red">* (Max 16 Angka)</p></label>
                                 <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik_user" name="nik" placeholder="Masukan NIK anda">
                                 @error('nik')
                                     <span class="invalid-feedback alert-danger" role="alert">{{ $message }}</span>
@@ -65,7 +65,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus laborum qu
                                 @enderror
                             </div>
                             <div class="form-group mb-3">
-                                <label class="d-flex gap-1" for="no_telp">No.Telepon<p style="color: red">*</p></label>
+                                <label class="d-flex gap-1" for="no_telp">No.Telepon<p style="color: red">* (Max 13 Angka)</p></label>
                                 <input type="number" class="form-control @error('no_hp') is-invalid @enderror" id="no_telp" name="no_hp" placeholder="0895.....">
                                 @error('no_hp')
                                     <span class="invalid-feedback alert-danger" role="alert">{{ $message }}</span>
