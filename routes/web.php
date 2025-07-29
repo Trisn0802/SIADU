@@ -45,6 +45,10 @@ Route::post('backend/login', [LoginController::class, 'authenticateBackend'])->n
 Route::get('backend/register', [RegisterController::class, 'passwordDebug'])->name('backend.register')->middleware('guest');
 Route::post('backend/register', [RegisterController::class, 'storeRegisterBackend'])->name('backend.register')->middleware('guest');
 
+// Route OTP
+Route::get('/otp/verify', [LoginController::class, 'showOtpForm'])->name('otp.verify.form');
+Route::post('/otp/verify', [LoginController::class, 'verifyOtp'])->name('otp.verify.process');
+
 // Halaman user (role = 0)
 Route::middleware(['auth', 'user'])->group(function () {
     // Beranda (dashboard user)
@@ -69,6 +73,13 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('backend/user/aduan/{id_pengaduan}/detail', [UserController::class, 'detailAduan'])->name('backend.user.detailaduan');
     Route::post('backend/user/aduan/{id_pengaduan}/chat', [UserController::class, 'sendChat'])->name('backend.user.sendchat');
     Route::delete('backend/user/aduan/{id_pengaduan}', [UserController::class, 'destroyAduan'])->name('backend.user.aduan.destroy');
+
+    // Notifikasi User
+    Route::get('backend/user/notifikasi', [UserController::class, 'getNotifikasi'])->name('backend.user.getnotifikasi');
+    Route::get('backend/user/notifikasi/unread', [UserController::class, 'countNotifikasiUnread'])->name('backend.user.countnotifikasiunread');
+    Route::post('backend/user/notifikasi/read', [UserController::class, 'readAllNotifikasi'])->name('backend.user.readnotifikasi');
+    Route::delete('backend/user/notifikasi/{id}', [UserController::class, 'deleteNotifikasi'])->name('backend.user.deletenotifikasi');
+    Route::delete('backend/user/notifikasi', [UserController::class, 'deleteAllNotifikasi'])->name('backend.user.deleteallnotifikasi');
 
     // Halaman Tindak Lanjut (User)
     Route::get('backend/user/riwayat-tindaklanjut', [UserController::class, 'riwayatTindakLanjut'])->name('backend.user.riwayat_tindaklanjut');
@@ -98,6 +109,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Halaman detail aduan
     Route::get('backend/admin/pengaduan/{id}/detail', [AdminController::class, 'detailAduan'])->name('backend.admin.detailaduan');
     Route::post('backend/admin/pengaduan/{id_pengaduan}/chat', [AdminController::class, 'sendChat'])->name('backend.admin.sendchat');
+    Route::post('backend/admin/pengaduan/{id_pengaduan}/assign', [AdminController::class, 'assignPetugas'])->name('backend.admin.assignpetugas');
+    Route::post('backend/admin/pengaduan/{id_pengaduan}/unassign', [AdminController::class, 'unassignPetugas'])->name('backend.admin.unassignpetugas');
 
     // Laporan per 1 aduan user
     Route::get('backend/admin/pengaduan/{id}/cetak', [AdminController::class, 'cetakAduan'])->name('backend.admin.pengaduan.cetak');

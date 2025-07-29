@@ -20,15 +20,11 @@ class User extends Authenticatable
     protected $table = 'user';
     protected $primaryKey = 'id_user';
     protected $fillable = [
-        'nama',
-        'nik',
-        'instansi',
-        'email',
-        'role',
-        'status',
-        'password',
-        'no_hp',
-        'foto',
+        'nama', 'nik', 'email', 'instansi', 'role', 'status', 'password', 'no_hp', 'foto', 'remember_token', 'otp_verified'
+    ];
+
+    protected $casts = [
+        'otp_verified' => 'boolean',
     ];
 
     protected $hidden = [

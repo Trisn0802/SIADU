@@ -132,6 +132,98 @@
                             <i class="fas fa-info-circle"></i> Info Tindak Lanjut Terakhir
                         </a>
                     @endif
+
+                    {{-- Section Assignment Petugas --}}
+                    <div class="mt-3">
+                        <h5><i class="fas fa-users"></i> Petugas yang Ditugaskan</h5>
+                        @if($petugasAktif->count() > 0)
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Role</th>
+                                            <th>Ditugaskan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($petugasAktif as $assignment)
+                                            <tr>
+                                                <td>
+                                                    @if($assignment->user->foto)
+                                                        <img src="{{ asset('storage/img-user/' . $assignment->user->foto) }}"
+                                                             alt="Foto" class="img-fluid rounded-circle" width="25">
+                                                    @else
+                                                        <img src="{{ asset('storage/img-user/img-default.jpg') }}"
+                                                             alt="Foto" class="img-fluid rounded-circle" width="25">
+                                                    @endif
+                                                    {{ $assignment->user->nama }}
+                                                </td>
+                                                <td>
+                                                    <span class="badge {{ $assignment->role_petugas == 'admin' ? 'badge-success' : 'badge-warning' }}">
+                                                        {{ ucfirst($assignment->role_petugas) }}
+                                                    </span>
+                                                </td>
+                                                <td>{{ $assignment->assigned_at->format('d/m/Y H:i') }}</td>
+                                                <td>
+                                                    <form action="{{ route('backend.admin.unassignpetugas', $aduan->id_pengaduan) }}"
+                                                          method="POST" style="display:inline;">
+                                                        @csrf
+                                                        <input type="hidden" name="id_user" value="{{ $assignment->user->id_user }}">
+                                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                                onclick="return confirm('Yakin ingin menghapus petugas ini?')">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <p class="text-muted">Belum ada petugas yang ditugaskan.</p>
+                        @endif
+
+                        {{-- Form Assignment --}}
+                        <div class="mt-3">
+                            <h6>Tugaskan Petugas Baru</h6>
+                            <form action="{{ route('backend.admin.assignpetugas', $aduan->id_pengaduan) }}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <select name="id_user" class="form-control form-control-sm" required>
+                                            <option value="">Pilih Admin/Petugas</option>
+                                            <optgroup label="Admin">
+                                                @foreach($admins as $admin)
+                                                    <option value="{{ $admin->id_user }}">{{ $admin->nama }}</option>
+                                                @endforeach
+                                            </optgroup>
+                                            <optgroup label="Petugas">
+                                                @foreach($petugas as $petugas_item)
+                                                    <option value="{{ $petugas_item->id_user }}">{{ $petugas_item->nama }}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select name="role_petugas" class="form-control form-control-sm" required>
+                                            <option value="">Pilih Role</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="petugas">Petugas</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-plus"></i> Tugaskan
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {{-- End Section Assignment --}}
                     {{-- <br> --}}
                     {{-- @can('delete', $aduan)
                         <form action="{{ route('backend.admin.pengaduan.destroy', $aduan->id_pengaduan) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus aduan: {{ $aduan->judul }}?');">

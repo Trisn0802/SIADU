@@ -209,6 +209,14 @@ class PetugasController extends Controller
             $aduan->status = 'diterima';
             $aduan->save();
 
+            // Otomatis assign petugas yang menerima ke pengaduan ini
+            $aduan->assignPetugas(auth()->user()->id_user, 'petugas');
+
+            // Update assigned_petugas jika belum ada
+            if (!$aduan->assigned_petugas) {
+                $aduan->update(['assigned_petugas' => auth()->user()->id_user]);
+            }
+
             // Kirim chat otomatis
             $chat = Chat::create([
                 'id_pengaduan' => $aduan->id_pengaduan,
@@ -341,6 +349,43 @@ class PetugasController extends Controller
             route('backend.user.detailaduan', $pengaduan->id_pengaduan),
             $notif->id_notifikasi
         ));
+
+        // === Notifikasi hanya ke admin yang ditugaskan ===
+        $nama_petugas = auth()->user()->nama;
+
+        // Dapatkan admin yang aktif menangani pengaduan ini (kecuali petugas yang mengirim)
+        $adminAktif = $pengaduan->pengaduanPetugas()
+                                ->aktif()
+                                ->role('admin')
+                                ->with('user')
+                                ->get();
+
+        foreach ($adminAktif as $assignment) {
+            $admin = $assignment->user;
+
+            // Skip jika ini adalah petugas yang mengirim pesan
+            if ($admin->id_user == auth()->user()->id_user) {
+                continue;
+            }
+
+            $notif = Notifikasi::create([
+                'id_user' => $admin->id_user,
+                'id_pengaduan' => $pengaduan->id_pengaduan,
+                'type' => 'chat',
+                'title' => 'Pesan Baru dari Petugas',
+                'pesan' => 'Petugas ' . $nama_petugas . ' mengirim pesan pada pengaduan "' . $judulAduan . '". Klik untuk melihat detail.',
+                'url' => route('backend.admin.detailaduan', $pengaduan->id_pengaduan),
+                'is_read' => 0,
+            ]);
+
+            event(new UserNotification(
+                $admin->id_user,
+                'Pesan Baru dari Petugas',
+                'Petugas ' . $nama_petugas . ' mengirim pesan pada pengaduan "' . $judulAduan . '". Klik untuk melihat detail.',
+                route('backend.admin.detailaduan', $pengaduan->id_pengaduan),
+                $notif->id_notifikasi
+            ));
+        }
 
         // === Kirim Email ===
         $role = auth()->user()->role == 1 ? 'Admin' : (auth()->user()->role == 2 ? 'Petugas' : 'User');

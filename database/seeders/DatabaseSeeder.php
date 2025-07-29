@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin'),
             'no_hp' => '08123456789',
             'foto' => 'admin.jpg',
+            'otp_verified' => 1,
         ]);
 
         // Seed Users
@@ -40,6 +41,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('Zeta123*'),
             'no_hp' => '08123456710',
             'foto' => 'petugas.jpg',
+            'otp_verified' => 1,
         ]);
 
         $user = User::create([

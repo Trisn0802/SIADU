@@ -350,33 +350,44 @@ class UserController extends Controller
 
         broadcast(new ChatSent($chat))->toOthers();
 
-        // === Notifikasi ke semua petugas yang menangani pengaduan ini ===
+        // === Notifikasi hanya ke petugas yang ditugaskan ===
         $nama_user = auth()->user()->nama;
-        if (method_exists($pengaduan, 'petugas')) {
-            foreach ($pengaduan->petugas as $petugas) {
-                $notif = Notifikasi::create([
-                    'id_user' => $petugas->id_user,
-                    'id_pengaduan' => $pengaduan->id_pengaduan,
-                    'type' => 'chat',
-                    'title' => 'Balasan Baru dari User',
-                    'pesan' => 'Ada balasan baru dari ' . $nama_user . ' pada pengaduan "' . $pengaduan->judul . '". Klik untuk melihat detail.',
-                    'url' => route('backend.petugas.detailaduan', $pengaduan->id_pengaduan),
-                    'is_read' => 0,
-                ]);
+        $judul_pengaduan = $pengaduan->judul;
 
-                event(new UserNotification(
-                    $petugas->id_user,
-                    'Balasan Baru dari User',
-                    'Ada balasan baru dari ' . $nama_user . ' pada pengaduan "' . $pengaduan->judul . '". Klik untuk melihat detail.',
-                    route('backend.petugas.detailaduan', $pengaduan->id_pengaduan),
-                    $notif->id_notifikasi
-                ));
-            }
+        // Dapatkan petugas yang aktif menangani pengaduan ini
+        $petugasAktif = $pengaduan->getPetugasAktif();
+
+        foreach ($petugasAktif as $assignment) {
+            $petugas = $assignment->user;
+            $role = $assignment->role_petugas;
+
+            // Tentukan route berdasarkan role
+            $route = $role == 'admin'
+                ? route('backend.admin.detailaduan', $pengaduan->id_pengaduan)
+                : route('backend.petugas.detailaduan', $pengaduan->id_pengaduan);
+
+            $notif = Notifikasi::create([
+                'id_user' => $petugas->id_user,
+                'id_pengaduan' => $pengaduan->id_pengaduan,
+                'type' => 'chat',
+                'title' => 'Balasan Baru dari User',
+                'pesan' => 'Ada balasan baru dari ' . $nama_user . ' pada pengaduan "' . $judul_pengaduan . '". Klik untuk melihat detail.',
+                'url' => $route,
+                'is_read' => 0,
+            ]);
+
+            event(new UserNotification(
+                $petugas->id_user,
+                'Balasan Baru dari User',
+                'Ada balasan baru dari ' . $nama_user . ' pada pengaduan "' . $judul_pengaduan . '". Klik untuk melihat detail.',
+                $route,
+                $notif->id_notifikasi
+            ));
         }
-        // Jika belum ada relasi petugas, bisa juga broadcast ke semua user dengan role admin/petugas
 
         return back();
     }
+
 
     public function destroyAduan($id_pengaduan)
     {

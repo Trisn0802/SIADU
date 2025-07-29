@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 28, 2025 at 01:49 AM
+-- Generation Time: Jul 29, 2025 at 08:42 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -41,29 +41,16 @@ CREATE TABLE `chat` (
 --
 
 INSERT INTO `chat` (`id_chat`, `id_pengaduan`, `id_user`, `pesan`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 'OK', '2025-06-27 09:31:02', '2025-06-27 09:31:02'),
-(2, 1, 2, 'Pengaduan \"Jalan Trotoar Bolong\" telah diterima dan akan segera diproses oleh petugas.', '2025-06-27 09:32:34', '2025-06-27 09:32:34'),
-(3, 1, 2, 'Aduan anda telah selesai ditangani. silahkan cek di menu riwayat tindak lanjut', '2025-06-27 09:33:17', '2025-06-27 09:33:17'),
-(4, 1, 1, 'Maaf, aduan anda \"Jalan Trotoar Bolong\" ditolak. Silakan cek riwayat percakapan aduan.', '2025-06-27 09:34:55', '2025-06-27 09:34:55'),
-(5, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh petugas.', '2025-06-27 09:48:01', '2025-06-27 09:48:01'),
-(6, 1, 1, 'tfest', '2025-06-27 09:53:11', '2025-06-27 09:53:11'),
-(7, 1, 1, 'oy', '2025-06-27 09:53:17', '2025-06-27 09:53:17'),
-(8, 1, 3, 'OK', '2025-06-27 09:57:22', '2025-06-27 09:57:22'),
-(9, 1, 1, 'YA', '2025-06-27 09:57:26', '2025-06-27 09:57:26'),
-(10, 1, 3, 'test', '2025-06-27 11:52:00', '2025-06-27 11:52:00'),
-(11, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh Admin, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:11:43', '2025-06-27 12:11:43'),
-(12, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh Admin, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:12:04', '2025-06-27 12:12:04'),
-(13, 1, 1, 'TEST', '2025-06-27 12:12:14', '2025-06-27 12:12:14'),
-(14, 1, 1, 'YO NIGGA', '2025-06-27 12:12:25', '2025-06-27 12:12:25'),
-(15, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh Admin, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:14:51', '2025-06-27 12:14:51'),
-(16, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh Admin, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:15:15', '2025-06-27 12:15:15'),
-(17, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh Admin, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:15:30', '2025-06-27 12:15:30'),
-(18, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh Admin, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:15:49', '2025-06-27 12:15:49'),
-(19, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh Admin, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:16:20', '2025-06-27 12:16:20'),
-(20, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh Admin, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:16:54', '2025-06-27 12:16:54'),
-(21, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" sedang diproses oleh Admin, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:18:42', '2025-06-27 12:18:42'),
-(22, 1, 1, 'APA COBA !!!', '2025-06-27 12:18:57', '2025-06-27 12:18:57'),
-(23, 1, 1, 'Aduan anda \"Jalan Trotoar Bolong\" telah selesai ditangani. Terima kasih, silahkan cek di menu riwayat tindak lanjut.', '2025-06-27 12:19:09', '2025-06-27 12:19:09');
+(1, 1, 2, 'oke', '2025-07-29 03:50:18', '2025-07-29 03:50:18'),
+(2, 1, 2, 'Pengaduan \"Jalanan Trotoar Rusak\" telah diterima dan akan segera diproses oleh petugas.', '2025-07-29 03:50:34', '2025-07-29 03:50:34'),
+(3, 1, 2, 'di tunggu ya mas', '2025-07-29 03:50:53', '2025-07-29 03:50:53'),
+(4, 1, 3, 'oke akan saya tunggu', '2025-07-29 03:51:06', '2025-07-29 03:51:06'),
+(5, 1, 3, 'SIAPPP!!!!', '2025-07-29 03:51:19', '2025-07-29 03:51:19'),
+(6, 1, 3, 'Okeee', '2025-07-29 03:51:37', '2025-07-29 03:51:37'),
+(7, 1, 3, 'mas di tunggu update nya!!', '2025-07-29 03:52:22', '2025-07-29 03:52:22'),
+(8, 1, 3, 'HEHEHEHE', '2025-07-29 03:57:15', '2025-07-29 03:57:15'),
+(9, 1, 2, 'APA CIK WOILA gk sabar banget loh ya abang ini!! 😠😠😠💢💢💢', '2025-07-29 03:57:50', '2025-07-29 03:57:50'),
+(10, 1, 3, 'IYA iya weh aku dah sabar ni', '2025-07-29 03:58:12', '2025-07-29 03:58:12');
 
 -- --------------------------------------------------------
 
@@ -106,7 +93,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2025_06_14_152537_pengaduan_table', 1),
 (7, '2025_06_14_152628_tindaklanjut_table', 1),
 (8, '2025_06_18_062719_chat_table', 1),
-(9, '2025_06_22_075955_notifikasi_table', 1);
+(9, '2025_06_22_075955_notifikasi_table', 1),
+(10, '2025_07_29_103937_create_pengaduan_petugas_table', 1),
+(11, '2025_07_29_104050_add_assigned_petugas_to_pengaduan_table', 1),
+(12, '2025_07_29_143213_create_user_otps_table', 2),
+(13, '2025_07_29_143605_add_otp_verified_to_user_table', 3);
 
 -- --------------------------------------------------------
 
@@ -132,22 +123,20 @@ CREATE TABLE `notifikasi` (
 --
 
 INSERT INTO `notifikasi` (`id_notifikasi`, `id_pengaduan`, `id_user`, `type`, `title`, `pesan`, `url`, `is_read`, `created_at`, `updated_at`) VALUES
-(1, NULL, 2, 'pengaduan', 'Pengaduan Baru', 'Ada pengaduan baru dari Trisna Almuti. Silakan cek dan proses.', 'http://127.0.0.1:8000/backend/petugas/pengaduan/1/detail', 1, '2025-06-27 09:23:02', '2025-06-27 09:23:32'),
-(2, NULL, 1, 'pengaduan', 'Pengaduan Baru', 'Ada pengaduan baru dari Trisna Almuti. Silakan cek dan proses.', 'http://127.0.0.1:8000/backend/admin/pengaduan/1/detail', 1, '2025-06-27 09:23:02', '2025-06-27 09:34:04'),
-(10, 1, 3, 'chat', 'Pesan Baru dari Admin', 'Anda menerima pesan baru dari admin pada pengaduan: \"Jalan Trotoar Bolong\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/aduan/1/detail', 1, '2025-06-27 09:57:26', '2025-06-27 10:32:19'),
-(11, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/2/detail', 0, '2025-06-27 12:11:43', '2025-06-27 12:11:43'),
-(12, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/3/detail', 0, '2025-06-27 12:12:04', '2025-06-27 12:12:04'),
-(13, 1, 3, 'chat', 'Pesan Baru dari Admin', 'Anda menerima pesan baru dari admin pada pengaduan: \"Jalan Trotoar Bolong\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/aduan/1/detail', 0, '2025-06-27 12:12:14', '2025-06-27 12:12:14'),
-(14, 1, 3, 'chat', 'Pesan Baru dari Admin', 'Anda menerima pesan baru dari admin pada pengaduan: \"Jalan Trotoar Bolong\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/aduan/1/detail', 0, '2025-06-27 12:12:25', '2025-06-27 12:12:25'),
-(15, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/4/detail', 0, '2025-06-27 12:14:52', '2025-06-27 12:14:52'),
-(16, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/5/detail', 0, '2025-06-27 12:15:15', '2025-06-27 12:15:15'),
-(17, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/6/detail', 0, '2025-06-27 12:15:30', '2025-06-27 12:15:30'),
-(18, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/7/detail', 0, '2025-06-27 12:15:49', '2025-06-27 12:15:49'),
-(19, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/8/detail', 0, '2025-06-27 12:16:20', '2025-06-27 12:16:20'),
-(20, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/9/detail', 0, '2025-06-27 12:16:55', '2025-06-27 12:16:55'),
-(21, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/10/detail', 0, '2025-06-27 12:18:42', '2025-06-27 12:18:42'),
-(22, 1, 3, 'chat', 'Pesan Baru dari Admin', 'Anda menerima pesan baru dari admin pada pengaduan: \"Jalan Trotoar Bolong\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/aduan/1/detail', 0, '2025-06-27 12:18:57', '2025-06-27 12:18:57'),
-(23, 1, 3, 'tindaklanjut', 'Tindak Lanjut Baru', 'Pengaduan \"Jalan Trotoar Bolong\" Anda telah ditindak lanjuti. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/tindaklanjut/11/detail', 0, '2025-06-27 12:19:09', '2025-06-27 12:19:09');
+(1, NULL, 2, 'pengaduan', 'Pengaduan Baru', 'Ada pengaduan baru dari Trisna Almuti. Silakan cek dan proses.', 'http://127.0.0.1:8000/backend/petugas/pengaduan/1/detail', 1, '2025-07-29 03:50:02', '2025-07-29 03:50:12'),
+(2, NULL, 1, 'pengaduan', 'Pengaduan Baru', 'Ada pengaduan baru dari Trisna Almuti. Silakan cek dan proses.', 'http://127.0.0.1:8000/backend/admin/pengaduan/1/detail', 1, '2025-07-29 03:50:02', '2025-07-29 03:51:32'),
+(3, 1, 3, 'chat', 'Pesan Baru dari Petugas', 'Anda menerima pesan baru dari petugas di Pengaduan \"Jalanan Trotoar Rusak\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/aduan/1/detail', 1, '2025-07-29 03:50:19', '2025-07-29 03:50:25'),
+(4, 1, 3, 'status', 'Pengaduan Diterima', 'Pengaduan \"Jalanan Trotoar Rusak\" Anda telah diterima oleh petugas. Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/aduan/1/detail', 1, '2025-07-29 03:50:34', '2025-07-29 03:50:44'),
+(5, 1, 3, 'chat', 'Pesan Baru dari Petugas', 'Anda menerima pesan baru dari petugas di Pengaduan \"Jalanan Trotoar Rusak\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/aduan/1/detail', 1, '2025-07-29 03:50:54', '2025-07-29 03:57:04'),
+(6, 1, 2, 'chat', 'Balasan Baru dari User', 'Ada balasan baru dari Trisna Almuti pada pengaduan \"Jalanan Trotoar Rusak\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/petugas/pengaduan/1/detail', 1, '2025-07-29 03:51:06', '2025-07-29 03:51:10'),
+(7, 1, 2, 'chat', 'Balasan Baru dari User', 'Ada balasan baru dari Trisna Almuti pada pengaduan \"Jalanan Trotoar Rusak\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/petugas/pengaduan/1/detail', 1, '2025-07-29 03:51:19', '2025-07-29 03:53:14'),
+(8, 1, 2, 'chat', 'Balasan Baru dari User', 'Ada balasan baru dari Trisna Almuti pada pengaduan \"Jalanan Trotoar Rusak\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/petugas/pengaduan/1/detail', 1, '2025-07-29 03:51:37', '2025-07-29 03:53:14'),
+(9, 1, 2, 'chat', 'Balasan Baru dari User', 'Ada balasan baru dari Trisna Almuti pada pengaduan \"Jalanan Trotoar Rusak\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/petugas/pengaduan/1/detail', 1, '2025-07-29 03:52:22', '2025-07-29 03:53:14'),
+(10, NULL, 2, 'pengaduan', 'Pengaduan Baru', 'Ada pengaduan baru dari Trisna Almuti. Silakan cek dan proses.', 'http://127.0.0.1:8000/backend/petugas/pengaduan/2/detail', 1, '2025-07-29 03:52:57', '2025-07-29 03:53:14'),
+(11, NULL, 1, 'pengaduan', 'Pengaduan Baru', 'Ada pengaduan baru dari Trisna Almuti. Silakan cek dan proses.', 'http://127.0.0.1:8000/backend/admin/pengaduan/2/detail', 0, '2025-07-29 03:52:57', '2025-07-29 03:52:57'),
+(12, 1, 2, 'chat', 'Balasan Baru dari User', 'Ada balasan baru dari Trisna Almuti pada pengaduan \"Jalanan Trotoar Rusak\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/petugas/pengaduan/1/detail', 1, '2025-07-29 03:57:15', '2025-07-29 03:57:19'),
+(13, 1, 3, 'chat', 'Pesan Baru dari Petugas', 'Anda menerima pesan baru dari petugas di Pengaduan \"Jalanan Trotoar Rusak\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/user/aduan/1/detail', 1, '2025-07-29 03:57:50', '2025-07-29 08:21:03'),
+(14, 1, 2, 'chat', 'Balasan Baru dari User', 'Ada balasan baru dari Trisna Almuti pada pengaduan \"Jalanan Trotoar Rusak\". Klik untuk melihat detail.', 'http://127.0.0.1:8000/backend/petugas/pengaduan/1/detail', 1, '2025-07-29 03:58:12', '2025-07-29 03:58:29');
 
 -- --------------------------------------------------------
 
@@ -167,7 +156,7 @@ CREATE TABLE `passwd_debug` (
 --
 
 INSERT INTO `passwd_debug` (`id_passwd`, `passDebug`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '2025-06-27 07:07:18', '2025-06-27 07:07:18');
+(1, 'admin', '2025-07-29 03:44:22', '2025-07-29 03:44:22');
 
 -- --------------------------------------------------------
 
@@ -197,6 +186,7 @@ CREATE TABLE `pengaduan` (
   `lokasi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_lapor` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('belum ditangani','diterima','diproses','ditolak','selesai') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'belum ditangani',
+  `assigned_petugas` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -205,8 +195,34 @@ CREATE TABLE `pengaduan` (
 -- Dumping data for table `pengaduan`
 --
 
-INSERT INTO `pengaduan` (`id_pengaduan`, `id_user`, `judul`, `deskripsi`, `kategori`, `foto`, `lokasi`, `tanggal_lapor`, `status`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Jalan Trotoar Bolong', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, nisi obcaecati? Error maiores voluptatem sed quaerat itaque voluptates. Laborum iste error exercitationem molestias quasi sunt quae nesciunt nobis veniam perferendis?', 'Lain-lain', '20250627162301_685e62f5d3c09.jpeg', 'TEST', '2025-06-27 16:23:01', 'selesai', '2025-06-27 09:23:01', '2025-06-27 12:19:09');
+INSERT INTO `pengaduan` (`id_pengaduan`, `id_user`, `judul`, `deskripsi`, `kategori`, `foto`, `lokasi`, `tanggal_lapor`, `status`, `assigned_petugas`, `created_at`, `updated_at`) VALUES
+(1, 3, 'Jalanan Trotoar Rusak', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic nisi dicta, quae consequuntur dolores at. Doloremque quo ab adipisci quidem non ad repudiandae rem autem nihil eum odit, nobis animi corporis quod libero quas cupiditate nesciunt quis ut ex eveniet. Nisi temporibus soluta beatae saepe, fuga autem itaque iure, est exercitationem magnam error doloribus rem recusandae ad quas reprehenderit nobis quod corporis deleniti illo, ipsam eum molestiae reiciendis unde! Quaerat molestias odio repellat cupiditate architecto sint labore eveniet recusandae accusamus totam ipsum, nobis debitis quos ex assumenda. Necessitatibus nobis delectus provident cumque aliquid explicabo quidem dolore nostrum, ut unde eveniet.', 'Infrastruktur', '20250729105001_688844e9b0ff4.jpeg', 'Jl. Kalianyar IV No. 29b', '2025-07-29 10:50:01', 'diterima', 2, '2025-07-29 03:50:01', '2025-07-29 03:50:34'),
+(2, 3, 'WALAWEEE', 'MALING PANGSIT !!!!!!!!!!!!!!!!!!!!!', 'Lain-lain', '20250729105257_688845991b4e4.jpg', 'Jl. Kalianyar IV No. 29b', '2025-07-29 10:52:57', 'belum ditangani', NULL, '2025-07-29 03:52:57', '2025-07-29 03:52:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengaduan_petugas`
+--
+
+CREATE TABLE `pengaduan_petugas` (
+  `id` bigint UNSIGNED NOT NULL,
+  `id_pengaduan` bigint UNSIGNED NOT NULL,
+  `id_user` bigint UNSIGNED NOT NULL,
+  `role_petugas` enum('admin','petugas') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'petugas',
+  `status_penanganan` enum('aktif','nonaktif') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'aktif',
+  `assigned_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `unassigned_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pengaduan_petugas`
+--
+
+INSERT INTO `pengaduan_petugas` (`id`, `id_pengaduan`, `id_user`, `role_petugas`, `status_penanganan`, `assigned_at`, `unassigned_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 'petugas', 'aktif', '2025-07-29 03:50:34', NULL, '2025-07-29 03:50:34', '2025-07-29 03:50:34');
 
 -- --------------------------------------------------------
 
@@ -245,23 +261,6 @@ CREATE TABLE `tindaklanjut` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `tindaklanjut`
---
-
-INSERT INTO `tindaklanjut` (`id_tindak`, `id_pengaduan`, `id_user`, `tanggal_tindak`, `catatan`, `status_akhir`, `foto`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, '2025-06-27 16:32:00', 'OKE SUDAH SELESAI!!!', 'selesai', '20250627163317_685e655df0554.jpg', '2025-06-27 09:33:18', '2025-06-27 09:33:18'),
-(2, 1, 1, '2025-06-27 19:10:00', 'TEST', 'diproses', NULL, '2025-06-27 12:11:43', '2025-06-27 12:11:43'),
-(3, 1, 1, '2025-06-27 19:11:00', 'TEST', 'diproses', NULL, '2025-06-27 12:12:04', '2025-06-27 12:12:04'),
-(4, 1, 1, '2025-06-27 19:14:00', 'COGG', 'diproses', NULL, '2025-06-27 12:14:52', '2025-06-27 12:14:52'),
-(5, 1, 1, '2025-06-27 19:15:00', 'TATA', 'diproses', NULL, '2025-06-27 12:15:15', '2025-06-27 12:15:15'),
-(6, 1, 1, '2025-06-27 19:15:00', 'COG', 'diproses', NULL, '2025-06-27 12:15:30', '2025-06-27 12:15:30'),
-(7, 1, 1, '2025-06-27 19:15:00', 'HELL NAAAHHH!!!!', 'diproses', NULL, '2025-06-27 12:15:49', '2025-06-27 12:15:49'),
-(8, 1, 1, '2025-06-27 19:16:00', 'TEST', 'diproses', NULL, '2025-06-27 12:16:20', '2025-06-27 12:16:20'),
-(9, 1, 1, '2025-06-27 19:16:00', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum dolor, voluptatibus delectus ducimus enim repellendus minus molestias nulla natus facilis temporibus accusamus fugiat iusto ratione voluptates fuga? Modi, qui in!', 'diproses', NULL, '2025-06-27 12:16:55', '2025-06-27 12:16:55'),
-(10, 1, 1, '2025-06-27 19:18:00', 'OYYY', 'diproses', NULL, '2025-06-27 12:18:42', '2025-06-27 12:18:42'),
-(11, 1, 1, '2025-06-27 19:19:00', 'YEA YEAH', 'selesai', '20250627191909_685e8c3da1203.jpg', '2025-06-27 12:19:09', '2025-06-27 12:19:09');
-
 -- --------------------------------------------------------
 
 --
@@ -280,6 +279,7 @@ CREATE TABLE `user` (
   `no_hp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `otp_verified` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -288,12 +288,38 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nama`, `nik`, `email`, `instansi`, `role`, `status`, `password`, `no_hp`, `foto`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Administrator', NULL, 'admin@gmail.com', 'Kementrian Keamanan', '1', 1, '$2y$12$89v6nuIEsZen4qrIp8rqB.DT5tTYVt.uzZQ3MxcgjjoR7shcJvsp6', '08123456789', 'admin.jpg', NULL, '2025-06-27 07:07:18', '2025-06-27 07:07:18'),
-(2, 'Vestia Zeta', NULL, 'zeta@gmail.com', 'Hololive Corporation', '2', 1, '$2y$12$rin2lKmmRRuwqINBNkxsO.Pdf8Zy70EWZ9sB9ckVNXTvQ0gJEYi9e', '08123456710', 'petugas.jpg', NULL, '2025-06-27 07:07:19', '2025-06-27 07:07:19'),
-(3, 'Trisna Almuti', '1234567890123456', 'trisnahomie@gmail.com', NULL, '0', 1, '$2y$12$Wv4D0Jo8l.tfwSfO5Ml8weccjM6Gzs9jdpL67uwXYehouEQYC/mES', '0895711856677', '', NULL, '2025-06-27 07:07:19', '2025-06-27 07:07:19'),
-(4, 'Fathur Rahman', '1234567890123456', 'fathur@gmail.com', NULL, '0', 1, '$2y$12$kSpmH5El7lDQ/btapD1oM.u5ushr7eJkH36XiHpRZBHvfUNvBEFLG', '089575567890', '', NULL, '2025-06-27 07:07:19', '2025-06-27 07:07:19'),
-(5, 'Zainal Abidin', '1234567890123456', 'zainal@gmail.com', NULL, '0', 0, '$2y$12$pQ5l5.hZXD8gygYun9bs4.iHTiiuQub2oU25a2BRMI5lFfFyE0yqy', '089575567890', '', NULL, '2025-06-27 07:07:19', '2025-06-27 07:07:19');
+INSERT INTO `user` (`id_user`, `nama`, `nik`, `email`, `instansi`, `role`, `status`, `password`, `no_hp`, `foto`, `remember_token`, `otp_verified`, `created_at`, `updated_at`) VALUES
+(1, 'Administrator', NULL, 'admin@gmail.com', 'Kementrian Keamanan', '1', 1, '$2y$12$3.0h6C.kSbyGqT1WQyBRYuKW9nsyxojgePygtPpFlsDVWlEKHDxKa', '08123456789', 'admin.jpg', NULL, 1, '2025-07-29 03:44:22', '2025-07-29 03:44:22'),
+(2, 'Vestia Zeta', NULL, 'zeta@gmail.com', 'Hololive Corporation', '2', 1, '$2y$12$bQU5PUFCQ9te0y0aw9TR5uppbL0KZ9q/o7jIgwlxhAKzC/MhZwiM2', '08123456710', 'petugas.jpg', NULL, 1, '2025-07-29 03:44:22', '2025-07-29 03:44:22'),
+(3, 'Trisna Almuti', '1234567890123456', 'trisnahomie@gmail.com', NULL, '0', 1, '$2y$12$6YN7GwUYA4TFoIzpJPCh0uoS6R0gQTDxWnSUQ6/Y4FPYw3rdolXGO', '0895711856677', '', NULL, 1, '2025-07-29 03:44:23', '2025-07-29 08:12:23'),
+(4, 'Fathur Rahman', '1234567890123456', 'fathur@gmail.com', NULL, '0', 1, '$2y$12$LCfAQKb7AsXUrQTyfkbKT.z9wyXnm1y8jl.4wQZDMVPLe82amZM1i', '089575567890', '', NULL, 0, '2025-07-29 03:44:23', '2025-07-29 03:44:23'),
+(5, 'Zainal Abidin', '1234567890123456', 'zainal@gmail.com', NULL, '0', 0, '$2y$12$s6nOAAdzSeP6bhBvBkUVquxifUY.hkCoZwrZqy1rE67WhxSileCLa', '089575567890', '', NULL, 0, '2025-07-29 03:44:23', '2025-07-29 03:44:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_otps`
+--
+
+CREATE TABLE `user_otps` (
+  `id` bigint UNSIGNED NOT NULL,
+  `id_user` bigint UNSIGNED NOT NULL,
+  `otp_code` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('login','forgot') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_verified` tinyint(1) NOT NULL DEFAULT '0',
+  `expired_at` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_otps`
+--
+
+INSERT INTO `user_otps` (`id`, `id_user`, `otp_code`, `type`, `is_verified`, `expired_at`, `created_at`, `updated_at`) VALUES
+(1, 3, '347578', 'login', 0, '2025-07-29 07:43:33', '2025-07-29 07:38:33', '2025-07-29 07:38:33'),
+(2, 3, '347310', 'login', 1, '2025-07-29 08:16:43', '2025-07-29 08:11:43', '2025-07-29 08:12:23'),
+(3, 1, '969519', 'login', 0, '2025-07-29 08:17:54', '2025-07-29 08:12:54', '2025-07-29 08:12:54');
 
 --
 -- Indexes for dumped tables
@@ -345,7 +371,16 @@ ALTER TABLE `password_reset_tokens`
 --
 ALTER TABLE `pengaduan`
   ADD PRIMARY KEY (`id_pengaduan`),
-  ADD KEY `pengaduan_id_user_foreign` (`id_user`);
+  ADD KEY `pengaduan_id_user_foreign` (`id_user`),
+  ADD KEY `pengaduan_assigned_petugas_foreign` (`assigned_petugas`);
+
+--
+-- Indexes for table `pengaduan_petugas`
+--
+ALTER TABLE `pengaduan_petugas`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pengaduan_petugas_id_pengaduan_id_user_unique` (`id_pengaduan`,`id_user`),
+  ADD KEY `pengaduan_petugas_id_user_foreign` (`id_user`);
 
 --
 -- Indexes for table `personal_access_tokens`
@@ -371,6 +406,13 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `user_email_unique` (`email`);
 
 --
+-- Indexes for table `user_otps`
+--
+ALTER TABLE `user_otps`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_otps_id_user_type_is_verified_index` (`id_user`,`type`,`is_verified`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -378,7 +420,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id_chat` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_chat` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -390,13 +432,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `id_notifikasi` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_notifikasi` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `passwd_debug`
@@ -408,7 +450,13 @@ ALTER TABLE `passwd_debug`
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengaduan` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pengaduan_petugas`
+--
+ALTER TABLE `pengaduan_petugas`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -420,13 +468,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `tindaklanjut`
 --
 ALTER TABLE `tindaklanjut`
-  MODIFY `id_tindak` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_tindak` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `user_otps`
+--
+ALTER TABLE `user_otps`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -450,7 +504,15 @@ ALTER TABLE `notifikasi`
 -- Constraints for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
+  ADD CONSTRAINT `pengaduan_assigned_petugas_foreign` FOREIGN KEY (`assigned_petugas`) REFERENCES `user` (`id_user`) ON DELETE SET NULL,
   ADD CONSTRAINT `pengaduan_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `pengaduan_petugas`
+--
+ALTER TABLE `pengaduan_petugas`
+  ADD CONSTRAINT `pengaduan_petugas_id_pengaduan_foreign` FOREIGN KEY (`id_pengaduan`) REFERENCES `pengaduan` (`id_pengaduan`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pengaduan_petugas_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tindaklanjut`
@@ -458,6 +520,12 @@ ALTER TABLE `pengaduan`
 ALTER TABLE `tindaklanjut`
   ADD CONSTRAINT `tindaklanjut_id_pengaduan_foreign` FOREIGN KEY (`id_pengaduan`) REFERENCES `pengaduan` (`id_pengaduan`) ON DELETE CASCADE,
   ADD CONSTRAINT `tindaklanjut_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `user_otps`
+--
+ALTER TABLE `user_otps`
+  ADD CONSTRAINT `user_otps_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

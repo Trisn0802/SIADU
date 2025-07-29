@@ -64,3 +64,78 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# SIADU - Sistem Informasi Aduan
+
+## Sistem Notifikasi Dua Arah
+
+### Fitur Baru: Assignment Petugas
+
+Sistem ini telah diperbarui dengan fitur assignment petugas yang memungkinkan notifikasi yang lebih spesifik dan terorganisir.
+
+#### Cara Kerja:
+
+1. **Assignment Otomatis:**
+   - Ketika admin mengubah status pengaduan dari "belum ditangani", admin tersebut otomatis ditugaskan ke pengaduan
+   - Ketika petugas menerima pengaduan, petugas tersebut otomatis ditugaskan ke pengaduan
+
+2. **Assignment Manual:**
+   - Admin dapat menugaskan admin/petugas lain ke pengaduan melalui interface
+   - Admin dapat menghapus assignment petugas dari pengaduan
+
+3. **Notifikasi Spesifik:**
+   - User hanya mengirim notifikasi ke petugas yang ditugaskan ke pengaduan mereka
+   - Admin hanya mengirim notifikasi ke petugas yang ditugaskan ke pengaduan yang sama
+   - Petugas hanya mengirim notifikasi ke admin yang ditugaskan ke pengaduan yang sama
+
+#### Struktur Database Baru:
+
+1. **Tabel `pengaduan_petugas`:**
+   - `id_pengaduan`: ID pengaduan
+   - `id_user`: ID admin/petugas
+   - `role_petugas`: Role (admin/petugas)
+   - `status_penanganan`: Status (aktif/nonaktif)
+   - `assigned_at`: Waktu ditugaskan
+   - `unassigned_at`: Waktu dihapus dari tugas
+
+2. **Kolom baru di tabel `pengaduan`:**
+   - `assigned_petugas`: ID petugas utama yang ditugaskan
+
+#### Alur Notifikasi:
+
+1. **User → Petugas/Admin:**
+   - User mengirim chat
+   - Notifikasi dikirim ke semua petugas/admin yang aktif menangani pengaduan tersebut
+
+2. **Admin → User:**
+   - Admin mengirim chat
+   - Notifikasi dikirim ke user pengadu
+   - Notifikasi juga dikirim ke petugas lain yang menangani pengaduan yang sama
+
+3. **Petugas → User:**
+   - Petugas mengirim chat
+   - Notifikasi dikirim ke user pengadu
+   - Notifikasi juga dikirim ke admin yang menangani pengaduan yang sama
+
+#### Keuntungan:
+
+1. **Notifikasi Lebih Relevan:** Hanya petugas yang benar-benar menangani yang menerima notifikasi
+2. **Tracking Penanganan:** Dapat melacak siapa saja yang menangani pengaduan tertentu
+3. **Fleksibilitas:** Admin dapat menugaskan multiple petugas ke satu pengaduan
+4. **Akuntabilitas:** Jelas siapa yang bertanggung jawab menangani pengaduan
+
+#### Cara Menggunakan:
+
+1. **Untuk Admin:**
+   - Buka detail pengaduan
+   - Lihat section "Petugas yang Ditugaskan"
+   - Gunakan form untuk menugaskan petugas baru
+   - Klik tombol hapus untuk unassign petugas
+
+2. **Untuk Petugas:**
+   - Ketika menerima pengaduan, otomatis ditugaskan
+   - Dapat melihat pengaduan yang ditugaskan di dashboard
+
+3. **Untuk User:**
+   - Tidak ada perubahan di interface
+   - Notifikasi akan lebih relevan dan terorganisir

@@ -111,6 +111,16 @@ class AdminController extends Controller
         $pengaduan->status = $request->status;
         $pengaduan->save();
 
+        // Otomatis assign admin yang mengubah status ke pengaduan ini
+        if ($request->status != 'belum ditangani') {
+            $pengaduan->assignPetugas(auth()->user()->id_user, 'admin');
+
+            // Update assigned_petugas jika belum ada
+            if (!$pengaduan->assigned_petugas) {
+                $pengaduan->update(['assigned_petugas' => auth()->user()->id_user]);
+            }
+        }
+
         // Kirim chat otomatis sesuai status
         $statusPesan = [
             'diterima' => 'Aduan anda "' . $pengaduan->judul . '" telah diterima dan akan segera diproses.',
@@ -138,6 +148,7 @@ class AdminController extends Controller
 
         $user = $pengaduan->user;
 
+        // Notifikasi untuk user pelapor
         $notif = Notifikasi::create([
             'id_user' => $user->id_user,
             'id_pengaduan' => $pengaduan->id_pengaduan,
@@ -159,14 +170,14 @@ class AdminController extends Controller
         // === Kirim Email ===
         $role = auth()->user()->role == 1 ? 'Admin' : (auth()->user()->role == 2 ? 'Petugas' : 'User');
         $judul = 'Status Pengaduan Diperbarui';
-        $pesan = $statusPesan[$request->status] ?? 'Status aduan "' . $pengaduan->judul . '" diperbarui.';
+        $pesan = 'Status pengaduan "' . $pengaduan->judul . '" Anda telah diperbarui menjadi: ' . ucfirst($pengaduan->status) . '.';
         $penanggap = auth()->user()->nama;
         $tanggal = Carbon::now()->format('Y-m-d H:i:s');
         $judulPengaduan = $pengaduan->judul;
         $url = route('backend.user.detailaduan', $pengaduan->id_pengaduan);
         Mail::to($user->email)->send(new NotifikasiUserMail($judul, $pesan, $penanggap, $tanggal, $judulPengaduan, $url, $role));
 
-        return redirect()->back()->with('success', 'Status pengaduan berhasil diubah!');
+        return back();
     }
 
     public function destroyPengaduan($id_pengaduan)
@@ -259,6 +270,46 @@ class AdminController extends Controller
             $notif->id_notifikasi
         ));
 
+        // === Notifikasi hanya ke petugas yang ditugaskan ===
+        $nama_admin = auth()->user()->nama;
+        $judul_pengaduan = $pengaduan->judul;
+
+        // Dapatkan petugas yang aktif menangani pengaduan ini (kecuali admin yang mengirim)
+        $petugasAktif = $pengaduan->getPetugasAktif();
+
+        foreach ($petugasAktif as $assignment) {
+            $petugas = $assignment->user;
+            $role = $assignment->role_petugas;
+
+            // Skip jika ini adalah admin yang mengirim pesan
+            if ($petugas->id_user == auth()->user()->id_user) {
+                continue;
+            }
+
+            // Tentukan route berdasarkan role
+            $route = $role == 'admin'
+                ? route('backend.admin.detailaduan', $pengaduan->id_pengaduan)
+                : route('backend.petugas.detailaduan', $pengaduan->id_pengaduan);
+
+            $notif = Notifikasi::create([
+                'id_user' => $petugas->id_user,
+                'id_pengaduan' => $pengaduan->id_pengaduan,
+                'type' => 'chat',
+                'title' => 'Pesan Baru dari Admin',
+                'pesan' => 'Admin ' . $nama_admin . ' mengirim pesan pada pengaduan "' . $judul_pengaduan . '". Klik untuk melihat detail.',
+                'url' => $route,
+                'is_read' => 0,
+            ]);
+
+            event(new UserNotification(
+                $petugas->id_user,
+                'Pesan Baru dari Admin',
+                'Admin ' . $nama_admin . ' mengirim pesan pada pengaduan "' . $judul_pengaduan . '". Klik untuk melihat detail.',
+                $route,
+                $notif->id_notifikasi
+            ));
+        }
+
         // === Kirim Email ===
         $role = auth()->user()->role == 1 ? 'Admin' : (auth()->user()->role == 2 ? 'Petugas' : 'User');
         $judul = 'Pengaduan Anda ditanggapi ' . auth()->user()->nama;
@@ -318,7 +369,86 @@ class AdminController extends Controller
             return redirect()->route('backend.admin.pengaduan')->with('error', 'Pengaduan tidak ditemukan atau sudah dihapus.');
         }
         $chats = Chat::where('id_pengaduan', $id_pengaduan)->orderBy('created_at')->get();
-        return view('backend.v_admin.aduandetailadmin', compact('aduan', 'chats'));
+
+        // Ambil petugas yang aktif menangani
+        $petugasAktif = $aduan->getPetugasAktif();
+
+        // Ambil semua admin dan petugas untuk dropdown assignment
+        $admins = User::where('role', '1')->where('status', 1)->get();
+        $petugas = User::where('role', '2')->where('status', 1)->get();
+
+        return view('backend.v_admin.aduandetailadmin', compact('aduan', 'chats', 'petugasAktif', 'admins', 'petugas'));
+    }
+
+    // Method untuk menugaskan petugas ke pengaduan
+    public function assignPetugas(Request $request, $id_pengaduan)
+    {
+        $request->validate([
+            'id_user' => 'required|exists:user,id_user',
+            'role_petugas' => 'required|in:admin,petugas'
+        ]);
+
+        $pengaduan = Pengaduan::findOrFail($id_pengaduan);
+        $user = User::findOrFail($request->id_user);
+
+        // Pastikan user yang ditugaskan adalah admin atau petugas
+        if (!in_array($user->role, ['1', '2'])) {
+            return back()->with('error', 'Hanya admin atau petugas yang dapat ditugaskan.');
+        }
+
+        // Assign petugas
+        $assignment = $pengaduan->assignPetugas($user->id_user, $request->role_petugas);
+
+        // Update assigned_petugas jika ini adalah petugas pertama
+        if (!$pengaduan->assigned_petugas) {
+            $pengaduan->update(['assigned_petugas' => $user->id_user]);
+        }
+
+        // Kirim notifikasi ke petugas yang ditugaskan
+        $notif = Notifikasi::create([
+            'id_user' => $user->id_user,
+            'id_pengaduan' => $pengaduan->id_pengaduan,
+            'type' => 'assignment',
+            'title' => 'Pengaduan Ditugaskan',
+            'pesan' => 'Anda ditugaskan untuk menangani pengaduan "' . $pengaduan->judul . '". Klik untuk melihat detail.',
+            'url' => $user->role == '1'
+                ? route('backend.admin.detailaduan', $pengaduan->id_pengaduan)
+                : route('backend.petugas.detailaduan', $pengaduan->id_pengaduan),
+            'is_read' => 0,
+        ]);
+
+        event(new UserNotification(
+            $user->id_user,
+            'Pengaduan Ditugaskan',
+            'Anda ditugaskan untuk menangani pengaduan "' . $pengaduan->judul . '". Klik untuk melihat detail.',
+            $user->role == '1'
+                ? route('backend.admin.detailaduan', $pengaduan->id_pengaduan)
+                : route('backend.petugas.detailaduan', $pengaduan->id_pengaduan),
+            $notif->id_notifikasi
+        ));
+
+        return back()->with('success', 'Petugas berhasil ditugaskan ke pengaduan ini.');
+    }
+
+    // Method untuk unassign petugas dari pengaduan
+    public function unassignPetugas(Request $request, $id_pengaduan)
+    {
+        $request->validate([
+            'id_user' => 'required|exists:user,id_user'
+        ]);
+
+        $pengaduan = Pengaduan::findOrFail($id_pengaduan);
+        $user = User::findOrFail($request->id_user);
+
+        // Unassign petugas
+        $pengaduan->unassignPetugas($user->id_user);
+
+        // Jika ini adalah assigned_petugas utama, reset ke null
+        if ($pengaduan->assigned_petugas == $user->id_user) {
+            $pengaduan->update(['assigned_petugas' => null]);
+        }
+
+        return back()->with('success', 'Petugas berhasil dihapus dari pengaduan ini.');
     }
 
     public function cetakAduan($id_pengaduan)
