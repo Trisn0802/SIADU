@@ -77,7 +77,7 @@
                                 <label for="otp">Masukkan 6 Digit Kode OTP</label>
                                 <div class="d-flex justify-content-center mt-3 mb-4">
                                     @for($i=0; $i<6; $i++)
-                                        <input type="number" name="otp[]" maxlength="1" pattern="[0-9]*" inputmode="numeric" class="form-control mx-1 text-center otp-input" style="width: 45px; height: 45px; font-size: 1.5em;" required>
+                                        <input type="text" name="otp[]" maxlength="1" pattern="[0-9]*" inputmode="numeric" class="form-control mx-1 text-center otp-input" style="width: 45px; height: 45px; font-size: 1.5em;" required>
                                     @endfor
                                 </div>
                             </div>
@@ -97,19 +97,51 @@
         </div>
     </div>
     <script>
-        // Auto focus next input
-        document.querySelectorAll('.otp-input').forEach((input, idx, arr) => {
-            input.addEventListener('input', function() {
-                if (this.value.length === 1 && idx < arr.length - 1) {
-                    arr[idx+1].focus();
-                }
+        // Handle OTP inputs: single-digit, auto-move, backspace and paste split
+        (function() {
+            const inputs = Array.from(document.querySelectorAll('.otp-input'));
+
+            inputs.forEach((input, idx) => {
+                input.addEventListener('input', (e) => {
+                    // keep only digits and only first char
+                    input.value = input.value.replace(/\D/g, '').slice(0,1);
+                    if (input.value && idx < inputs.length - 1) {
+                        inputs[idx + 1].focus();
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace') {
+                        if (input.value === '' && idx > 0) {
+                            inputs[idx - 1].focus();
+                        } else {
+                            // allow deleting current value
+                            input.value = '';
+                        }
+                        // prevent default so we control focus/clearing
+                        e.preventDefault();
+                    } else if (e.key.length === 1 && /\d/.test(e.key)) {
+                        // allow digit keys (will be handled in input event)
+                    } else if (e.key !== 'Tab' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
+                        // block non-numeric non-control keys
+                        // allow navigation keys
+                        if (!e.ctrlKey && !e.metaKey) e.preventDefault();
+                    }
+                });
+
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const paste = (e.clipboardData || window.clipboardData).getData('text') || '';
+                    const digits = paste.replace(/\D/g, '').split('');
+                    if (digits.length === 0) return;
+                    for (let i = 0; i < digits.length && (idx + i) < inputs.length; i++) {
+                        inputs[idx + i].value = digits[i];
+                    }
+                    const focusIndex = Math.min(idx + digits.length, inputs.length - 1);
+                    inputs[focusIndex].focus();
+                });
             });
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Backspace' && this.value === '' && idx > 0) {
-                    arr[idx-1].focus();
-                }
-            });
-        });
+        })();
     </script>
 
 </body>

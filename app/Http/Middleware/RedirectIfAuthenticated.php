@@ -21,6 +21,18 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                $user = Auth::user();
+                
+                // Redirect berdasarkan role user
+                if ($user->role == 0) { // User
+                    return redirect()->route('backend.beranda.user');
+                } elseif ($user->role == 1) { // Admin
+                    return redirect()->route('backend.beranda');
+                } elseif ($user->role == 2) { // Petugas
+                    return redirect()->route('backend.petugas.dashboard');
+                }
+                
+                // Fallback redirect
                 return redirect(RouteServiceProvider::HOME);
             }
         }

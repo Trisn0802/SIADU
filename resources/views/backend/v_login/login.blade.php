@@ -182,6 +182,13 @@
                         <button type="submit" class="btn btn-primary btn-block w-100 mt-3">Login</button>
                         <button type="button" class="btn btn-secondary btn-block w-100 mt-3" onclick="window.location='{{ route('landing.page') }}'">Home</button>
                         <p class="mt-3 text-center">Belum punya akun? <a class="text-decoration-none" href="{{ route('backend.register') }}">Daftar disini</a></p>
+                        <hr class="my-3">
+                        <p class="text-center mb-2">
+                            <small class="text-muted">Sudah memiliki kode OTP?</small>
+                        </p>
+                        <button type="button" class="btn btn-outline-primary btn-block w-100" onclick="window.location='{{ route('otp.verify.form') }}'">
+                            Verifikasi OTP
+                        </button>
                     </form>
                 </div>
             </div>

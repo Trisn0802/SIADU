@@ -197,23 +197,19 @@
                                             <option value="">Pilih Admin/Petugas</option>
                                             <optgroup label="Admin">
                                                 @foreach($admins as $admin)
-                                                    <option value="{{ $admin->id_user }}">{{ $admin->nama }}</option>
+                                                    <option value="{{ $admin->id_user }}" data-role="admin">{{ $admin->nama }}</option>
                                                 @endforeach
                                             </optgroup>
                                             <optgroup label="Petugas">
                                                 @foreach($petugas as $petugas_item)
-                                                    <option value="{{ $petugas_item->id_user }}">{{ $petugas_item->nama }}</option>
+                                                    <option value="{{ $petugas_item->id_user }}" data-role="petugas">{{ $petugas_item->nama }}</option>
                                                 @endforeach
                                             </optgroup>
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
-                                        <select name="role_petugas" class="form-control form-control-sm" required>
-                                            <option value="">Pilih Role</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="petugas">Petugas</option>
-                                        </select>
-                                    </div>
+                                    {{-- <div class="col-md-4"> --}}
+                                        <input type="hidden" name="role_petugas" id="role_petugas" value="">
+                                    {{-- </div> --}}
                                     <div class="col-md-2">
                                         <button type="submit" class="btn btn-sm btn-primary">
                                             <i class="fas fa-plus"></i> Tugaskan
@@ -529,6 +525,31 @@ document.querySelectorAll('.wa-confirm').forEach(function(link) {
             }
         });
     });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const userSelect = document.querySelector('select[name="id_user"]');
+    const roleInput = document.getElementById('role_petugas');
+    if (!userSelect || !roleInput) return;
+
+    function setRoleFromSelected() {
+        const opt = userSelect.options[userSelect.selectedIndex];
+        roleInput.value = (opt && opt.dataset && opt.dataset.role) ? opt.dataset.role : '';
+    }
+
+    userSelect.addEventListener('change', setRoleFromSelected);
+    setRoleFromSelected();
+
+    const assignForm = userSelect.closest('form');
+    if (assignForm) {
+        assignForm.addEventListener('submit', function(e) {
+            if (!roleInput.value) {
+                e.preventDefault();
+                alert('Silakan pilih Admin/Petugas terlebih dahulu.');
+            }
+        });
+    }
 });
 </script>
 @endsection

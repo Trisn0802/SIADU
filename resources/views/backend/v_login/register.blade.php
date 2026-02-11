@@ -114,6 +114,13 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus laborum qu
                             <button type="submit" class="btn btn-primary btn-block w-100">Register</button>
                         </form>
                         <p class="mt-3 text-center">Sudah punya akun? <a class="text-decoration-none" href="{{ route('backend.login') }}">Login</a></p>
+                        <hr class="my-3">
+                        <p class="text-center mb-2">
+                            <small class="text-muted">Sudah memiliki kode OTP?</small>
+                        </p>
+                        <button type="button" class="btn btn-outline-primary btn-block w-100" onclick="window.location='{{ route('otp.verify.form') }}'">
+                            Verifikasi OTP
+                        </button>
                     </div>
                 </div>
             </div>

@@ -55,22 +55,30 @@ class Pengaduan extends Model
     // Method untuk menugaskan petugas
     public function assignPetugas($userId, $role = 'petugas')
     {
-        // Cek apakah sudah ada assignment aktif
+        // Cek apakah sudah pernah ada assignment (aktif atau nonaktif)
         $existing = $this->pengaduanPetugas()
                         ->where('id_user', $userId)
-                        ->where('status_penanganan', 'aktif')
                         ->first();
 
-        if (!$existing) {
-            return $this->pengaduanPetugas()->create([
-                'id_user' => $userId,
+        if ($existing) {
+            // Jika sudah ada, update role/status dan kembalikan record
+            $existing->update([
                 'role_petugas' => $role,
                 'status_penanganan' => 'aktif',
-                'assigned_at' => now()
+                'assigned_at' => now(),
+                'unassigned_at' => null,
             ]);
+
+            return $existing->fresh();
         }
 
-        return $existing;
+        // Jika belum ada sama sekali, buat record baru
+        return $this->pengaduanPetugas()->create([
+            'id_user' => $userId,
+            'role_petugas' => $role,
+            'status_penanganan' => 'aktif',
+            'assigned_at' => now()
+        ]);
     }
 
     // Method untuk unassign petugas

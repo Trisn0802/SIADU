@@ -58,7 +58,7 @@
 
     <!-- Chart Bar & Pie -->
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Pengaduan Hari ini</h5>
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Pengaduan Bulan ini</h5>
@@ -74,11 +74,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Chart Kategori -->
-    <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Berdasarkan Kategori Bulan Ini</h5>
@@ -87,6 +83,18 @@
             </div>
         </div>
     </div>
+
+    <!-- Chart Kategori -->
+    {{-- <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Berdasarkan Kategori Bulan Ini</h5>
+                    <canvas id="kategoriBars" style="height: 400px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 </div>
 
 {{-- Chart.js CDN --}}
