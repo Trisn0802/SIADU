@@ -80,7 +80,7 @@
         </div>
 
         <p style="text-align: center; margin: 20px 0;">
-            <a href="{{ route('otp.verify.form') }}" class="verify-button">
+            <a href="{{ route('otp.verify.form', ['otp_id' => $otp_id]) }}" class="verify-button">
                 🔐 Verifikasi OTP Sekarang
             </a>
         </p>

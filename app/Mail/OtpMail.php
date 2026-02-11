@@ -13,14 +13,16 @@ class OtpMail extends Mailable
 
     public $otp_code;
     public $nama;
+    public $otp_id;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($otp_code, $nama)
+    public function __construct($otp_code, $nama, $otp_id = null)
     {
         $this->otp_code = $otp_code;
         $this->nama = $nama;
+        $this->otp_id = $otp_id;
     }
 
     /**
@@ -33,6 +35,7 @@ class OtpMail extends Mailable
             ->with([
                 'otp_code' => $this->otp_code,
                 'nama' => $this->nama,
+                'otp_id' => $this->otp_id,
             ]);
     }
 }

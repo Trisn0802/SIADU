@@ -35,12 +35,12 @@ class LoginController extends Controller
             if (!$user->otp_verified) {
                 // Generate OTP baru
                 $otp = \App\Models\UserOtp::generateOtp($user->id_user, 'login', 5);
-                // Kirim email OTP
-                Mail::to($user->email)->send(new OtpMail($otp->otp_code, $user->nama));
+                // Kirim email OTP dengan parameter otp_id
+                Mail::to($user->email)->send(new OtpMail($otp->otp_code, $user->nama, $otp->id));
                 // Simpan id_user ke session untuk proses OTP
                 session(['otp_user_id' => $user->id_user]);
                 Auth::logout();
-                return redirect()->route('otp.verify.form')->with('info', 'Kode OTP telah dikirim ke email Anda. Silakan verifikasi untuk melanjutkan.');
+                return redirect()->route('otp.verify.form', ['otp_id' => $otp->id])->with('info', 'Kode OTP telah dikirim ke email Anda. Silakan verifikasi untuk melanjutkan.');
             }
 
             $request->session()->regenerate();
@@ -68,11 +68,28 @@ class LoginController extends Controller
         return redirect(route('backend.login'));
     }
 
-    public function showOtpForm()
+    public function showOtpForm(Request $request)
     {
+        $otp_id = $request->query('otp_id');
+        
+        // Jika ada otp_id di URL (dari email link), validate dan set session
+        if ($otp_id) {
+            $otp = \App\Models\UserOtp::find($otp_id);
+            
+            // Validate otp record
+            if (!$otp || $otp->is_verified || $otp->isExpired()) {
+                return redirect()->route('backend.login')->with('error', 'Link OTP tidak valid atau sudah kadaluarsa. Silakan login ulang.');
+            }
+            
+            // Set session dengan id_user dari OTP record
+            session(['otp_user_id' => $otp->id_user]);
+        }
+        
+        // Check apakah ada session otp_user_id (dari login atau dari email link)
         if (!session('otp_user_id')) {
             return redirect()->route('backend.login')->with('error', 'Silakan login terlebih dahulu.');
         }
+        
         return view('backend.v_login.otp_verify');
     }
 
@@ -84,6 +101,10 @@ class LoginController extends Controller
         ]);
         $otpInput = implode('', $request->otp);
         $userId = session('otp_user_id');
+        
+        if (!$userId) {
+            return redirect()->route('backend.login')->with('error', 'Session OTP telah berakhir. Silakan login ulang.');
+        }
         $otp = \App\Models\UserOtp::where('id_user', $userId)
             ->where('type', 'login')
             ->where('is_verified', false)
