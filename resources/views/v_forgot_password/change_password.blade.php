@@ -222,7 +222,7 @@
                     };
                 @endphp
 
-                <form action="{{ route($routeName, ['uuid' => $user->uuid]) }}" method="PUT">
+                <form action="{{ route($routeName, ['uuid' => $user->uuid]) }}" method="POST">
                     @csrf
                     @method('PUT')
 

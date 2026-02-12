@@ -183,9 +183,9 @@ class ForgotPasswordController extends Controller
 
         // Tentukan route kembali berdasarkan role user
         $backRoute = match($user->role) {
-            1 => 'backend.user.showUser',  // admin
-            2 => 'backend.petugas.dashboard',  // petugas
-            default => 'backend.beranda.user'  // user
+            1 => 'backend.beranda',  // admin dashboard
+            2 => 'backend.petugas.dashboard',  // petugas dashboard
+            default => 'backend.beranda.user'  // user dashboard
         };
 
         return redirect()->route($backRoute)
