@@ -106,7 +106,11 @@
                     <div class="border-top">
                         <div class="card-body mobile-btn">
                             <button type="submit" class="btn btn-primary auto-width-btn">Perbaharui</button>
-                            <a href="{{ route('password.forgot.form.change.petugas', ['uuid' => $edit->uuid]) }}" class="btn btn-info auto-width-btn">Ganti Password</a>
+                            @if(!empty($edit->uuid))
+    <a href="{{ route('password.forgot.form.change.petugas', ['uuid' => $edit->uuid]) }}" class="btn btn-info auto-width-btn">Ganti Password</a>
+@else
+    <button class="btn btn-info auto-width-btn" disabled title="UUID tidak tersedia">Ganti Password</button>
+@endif
                             <a href="{{ route('backend.petugas.dashboard') }}" class="btn btn-secondary auto-width-btn">Kembali</a>
                         </div>
                     </div>

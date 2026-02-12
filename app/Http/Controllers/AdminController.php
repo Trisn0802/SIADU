@@ -623,27 +623,24 @@ class AdminController extends Controller
 
     public function gantiPassword(string $uuid)
     {
+        // use unified change_password view for admin
         $user = User::where('uuid', $uuid)->firstOrFail();
-
-        // if (auth()->user()->role == 0 && auth()->user()->id != $user->id) {
-        //     return redirect()->route('backend.user.edit', ['id' => auth()->user()->id])
-        //         ->with('error', 'Anda tidak memiliki izin untuk mengedit profil ini.');
-        // }
 
         if (auth()->user()->role == 0 && auth()->user()->id_user != $user->id_user) {
             return redirect()->route('backend.error.404')
                 ->with('error', 'Anda tidak memiliki izin untuk mengedit profil ini.');
         }
 
-        return view('backend.v_admin.gantipassword', [
+        return view('backend.v_admin.change_password', [
             'judul' => 'Ganti Password',
-            'edit' => $user
+            'user' => $user
         ]);
     }
 
-    public function updatePassword(Request $request, $id_user)
+    public function updatePassword(Request $request, $uuid)
     {
-        $user = User::findOrFail($id_user);
+        // find user by uuid (routes and forms now pass uuid)
+        $user = User::where('uuid', $uuid)->firstOrFail();
 
         // Validasi input
         $request->validate([

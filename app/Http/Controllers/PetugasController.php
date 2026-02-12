@@ -98,6 +98,7 @@ class PetugasController extends Controller
 
     public function update(Request $request)
     {
+        /** @var \App\Models\User $user */
         $user = auth()->user();
         $rules = [
             'nama' => 'required|max:255',
@@ -140,15 +141,17 @@ class PetugasController extends Controller
 
     public function gantiPassword()
     {
-        $edit = auth()->user();
-        return view('backend.v_petugas.gantipassword', [
+        // show unified change_password view for petugas
+        $user = auth()->user();
+        return view('backend.v_petugas.change_password', [
             'judul' => 'Ganti Password',
-            'edit' => $edit
+            'user' => $user
         ]);
     }
 
     public function updatePassword(Request $request)
     {
+        /** @var \App\Models\User $user */
         $user = auth()->user();
         $request->validate([
             'password_lama' => 'required',
@@ -167,8 +170,7 @@ class PetugasController extends Controller
             return redirect()->back()->withErrors(['password_baru' => 'Password baru tidak boleh sama dengan password lama.']);
         }
         $user->password = Hash::make($request->password_baru);
-
-        $user->save();
+        $user->update(['password' => $user->password]);
 
         return redirect()->route('backend.petugas.dashboard')->with('success', 'Password berhasil diubah.');
     }

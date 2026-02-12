@@ -16,7 +16,7 @@
     {{-- Font Poppins --}}
     <link rel="stylesheet" href="{{ asset('font/poppins-font.css') }}">
 
-    <title>SIADU - Ganti Password</title>
+    <title>SIADU - Ganti Password User</title>
     <link href="{{ asset('backend/dist/css/style.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
@@ -45,7 +45,7 @@
         width: 100%;
     }
     .auth-header {
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
         color: white;
         padding: 30px 20px;
         text-align: center;
@@ -84,8 +84,8 @@
     }
     .form-group input:focus {
         outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+        border-color: #28a745;
+        box-shadow: 0 0 0 3px rgba(40,167,69,0.1);
     }
     .form-group input.is-invalid {
         border-color: #dc3545;
@@ -115,14 +115,14 @@
         align-items: center;
         justify-content: center;
     }
-    .btn-primary {
-        background-color: #007bff;
+    .btn-success {
+        background-color: #28a745;
         color: white;
     }
-    .btn-primary:hover {
-        background-color: #0056b3;
+    .btn-success:hover {
+        background-color: #1e7e34;
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+        box-shadow: 0 5px 15px rgba(40,167,69,0.3);
     }
     .btn-secondary {
         background-color: #6c757d;
@@ -133,12 +133,12 @@
         transform: translateY(-2px);
     }
     .info-box {
-        background-color: #e7f3ff;
-        border-left: 4px solid #007bff;
+        background-color: #d4edda;
+        border-left: 4px solid #28a745;
         padding: 15px;
         margin-bottom: 25px;
         border-radius: 5px;
-        color: #004085;
+        color: #155724;
         font-size: 14px;
         line-height: 1.5;
     }
@@ -187,7 +187,7 @@
         <div class="auth-card">
             <div class="auth-header">
                 <h2>🔐 Ganti Password</h2>
-                <p>SIADU - Sistem Informasi Aduan</p>
+                <p>SIADU - Masyarakat</p>
             </div>
 
             <div class="auth-body">
@@ -209,21 +209,11 @@
                 @endif
 
                 <div class="info-box">
-                    <strong>👤 Pengguna: {{ $user->nama }}</strong><br>
+                    <strong>👤 Pengguna: {{ $user->nama }}</strong> (Masyarakat)<br>
                     Masukkan password lama dan password baru Anda di bawah ini.
                 </div>
 
-                @php
-                    // Submit ke backend.*.updatepassword agar sama dengan UI lama (`gantipassword`)
-                    $routeName = match($user->role) {
-                        1 => 'backend.admin.updatepassword',
-                        2 => 'backend.petugas.updatepassword',
-                        default => 'backend.user.updatepassword'
-                    };
-                    $routeParams = $user->role === 2 ? [] : ['uuid' => $user->uuid];
-                @endphp
-
-                <form action="{{ route($routeName, $routeParams) }}" method="POST">
+                <form action="{{ route('backend.user.updatepassword', ['uuid' => $user->uuid]) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -284,7 +274,7 @@
                     </div>
 
                     <div class="btn-container">
-                        <button type="submit" class="btn btn-primary">Ganti Password</button>
+                        <button type="submit" class="btn btn-success">Ganti Password</button>
                         <a href="javascript:history.back()" class="btn btn-secondary">Kembali</a>
                     </div>
                 </form>
@@ -307,7 +297,6 @@
     <script>
     function togglePassword(fieldId, iconElem) {
         const input = document.getElementById(fieldId);
-        // toggle only the clicked icon, not all icons on the page
         if (!input || !iconElem) return;
         if (input.type === 'password') {
             input.type = 'text';

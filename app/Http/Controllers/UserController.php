@@ -163,21 +163,17 @@ class UserController extends Controller
 
     public function gantiPassword(string $uuid)
     {
+        // show unified change_password view for user
         $user = User::where('uuid', $uuid)->firstOrFail();
-
-        // if (auth()->user()->role == 0 && auth()->user()->id != $user->id) {
-        //     return redirect()->route('backend.user.edit', ['id' => auth()->user()->id])
-        //         ->with('error', 'Anda tidak memiliki izin untuk mengedit profil ini.');
-        // }
 
         if (auth()->user()->role == 0 && auth()->user()->id_user != $user->id_user) {
             return redirect()->route('backend.error.404')
                 ->with('error', 'Anda tidak memiliki izin untuk mengedit profil ini.');
         }
 
-        return view('backend.v_user.gantipassword', [
+        return view('backend.v_user.change_password', [
             'judul' => 'Ganti Password',
-            'edit' => $user
+            'user' => $user
         ]);
     }
 
