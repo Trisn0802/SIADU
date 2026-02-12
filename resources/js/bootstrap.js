@@ -20,9 +20,23 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
-window.Echo = new Echo({
+const _useLocalPusher = Boolean(import.meta.env.VITE_PUSHER_HOST);
+
+const _echoOptions = {
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-    forceTLS: true
-});
+};
+
+if (_useLocalPusher) {
+    _echoOptions.wsHost = import.meta.env.VITE_PUSHER_HOST;
+    _echoOptions.wsPort = import.meta.env.VITE_PUSHER_PORT || 6001;
+    _echoOptions.wssPort = import.meta.env.VITE_PUSHER_PORT || 6001;
+    _echoOptions.forceTLS = import.meta.env.VITE_PUSHER_SCHEME === 'https';
+    _echoOptions.enabledTransports = ['ws', 'wss'];
+    _echoOptions.disableStats = true; // don't call pusher.com stats endpoint
+} else {
+    _echoOptions.forceTLS = true;
+}
+
+window.Echo = new Echo(_echoOptions);

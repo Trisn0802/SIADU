@@ -115,7 +115,7 @@
             </div>
         </div>
 
-        
+
         {{-- @php
             $isAdmin = auth()->user()->role == 1;
             $cannotChat = $isAdmin || in_array($aduan->status, ['ditolak', 'selesai']);
@@ -226,7 +226,16 @@
         broadcaster: 'pusher',
         key: '{{ env('PUSHER_APP_KEY') }}',
         cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
-        forceTLS: true
+        @if (env('PUSHER_HOST'))
+            wsHost: '{{ env('PUSHER_HOST') }}',
+            wsPort: {{ env('PUSHER_PORT', 6001) }},
+            wssPort: {{ env('PUSHER_PORT', 6001) }},
+            forceTLS: {{ env('PUSHER_SCHEME','https') === 'https' ? 'true' : 'false' }},
+            enabledTransports: ['ws','wss'],
+            disableStats: true
+        @else
+            forceTLS: true
+        @endif
     });
 
     Echo.channel('chat.' + {{ $aduan->id_pengaduan }})
