@@ -357,12 +357,12 @@
                                     </a>
                                 @elseif($authUser && $authUser->role == 1)
                                     <a class="dropdown-item"
-                                        href="{{ route('backend.admin.edit', $authUser->id_user) }}">
+                                        href="{{ route('backend.admin.edit', $authUser->uuid) }}">
                                         <i class="ti-user m-r-5 m-l-5"></i> Profil Saya
                                     </a>
                                 @elseif($authUser && $authUser->role == 2)
                                     <a class="dropdown-item"
-                                        href="{{ route('backend.petugas.edit', $authUser->id_user) }}">
+                                        href="{{ route('backend.petugas.edit', $authUser->uuid) }}">
                                         <i class="ti-user m-r-5 m-l-5"></i> Profil Saya
                                     </a>
                                 @endif

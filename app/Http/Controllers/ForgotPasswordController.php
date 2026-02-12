@@ -17,7 +17,7 @@ class ForgotPasswordController extends Controller
      */
     public function showForgotPasswordForm()
     {
-        return view('backend.v_forgot_password.request', [
+        return view('v_forgot_password.request', [
             'judul' => 'Lupa Password'
         ]);
     }
@@ -80,7 +80,7 @@ class ForgotPasswordController extends Controller
                            ->with('error', 'Link reset password tidak valid atau telah kadaluarsa');
         }
 
-        return view('backend.v_forgot_password.reset', [
+        return view('v_forgot_password.reset', [
             'judul' => 'Reset Password',
             'token' => $token,
             'email' => $user->email
@@ -141,7 +141,7 @@ class ForgotPasswordController extends Controller
             }
         }
 
-        return view('backend.v_forgot_password.change_password', [
+        return view('v_forgot_password.change_password', [
             'judul' => 'Ganti Password',
             'user' => $user,
             'userType' => $userType,
