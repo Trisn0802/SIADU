@@ -1,7 +1,7 @@
 <body style="margin:0; padding:0; font-family: 'Segoe UI', Arial, sans-serif;">
     <div style="max-width:500px; margin:50px auto; background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.05); padding:32px 32px 24px 32px;">
         <div style="text-align:center; margin-bottom:24px;">
-            <img src="https://i.ibb.co/mpdPwG4/logo.png" alt="Logo" width="80" height="80" style="border-radius:50%; object-fit: cover;">
+            <img src="{{ asset('image/logo.png') }}" alt="Logo" width="80" height="80" style="border-radius:50%; object-fit: cover;">
         </div>
         <div style="font-size:1.15rem; color:#4b2354; font-weight:600; margin-bottom:18px; text-align:center;">
             Pengaduan Anda ditanggapi <span style="color:#4b2354; font-weight:700;">{{ $penanggap ?? 'Petugas/Admin' }}</span>
