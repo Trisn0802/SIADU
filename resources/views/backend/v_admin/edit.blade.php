@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <form action="{{ route('backend.admin.update', $edit->id_user) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('backend.admin.update', $edit->uuid) }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="card-body">
@@ -114,7 +114,7 @@
                     <div class="border-top">
                         <div class="card-body mobile-btn">
                             <button type="submit" class="btn btn-primary auto-width-btn">Perbaharui</button>
-                            <a href="{{ route('backend.admin.gantipassword', $edit->id_user) }}" class="btn btn-info auto-width-btn">Ganti Password</a>
+                            <a href="{{ route('password.forgot.form.change.admin', ['uuid' => $edit->uuid]) }}" class="btn btn-info auto-width-btn">Ganti Password</a>
                             <a href="{{ route('backend.user.showUser') }}" class="btn btn-secondary auto-width-btn">Kembali</a>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Mail;
 
 // Redirect root ke login
@@ -49,6 +50,14 @@ Route::post('backend/register', [RegisterController::class, 'storeRegisterBacken
 Route::get('/otp/verify', [LoginController::class, 'showOtpForm'])->name('otp.verify.form');
 Route::post('/otp/verify', [LoginController::class, 'verifyOtp'])->name('otp.verify.process');
 
+// Route Forgot Password (Bisa diakses tanpa login)
+Route::middleware('guest')->group(function () {
+    Route::get('backend/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.forgot.form');
+    Route::post('backend/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.send.reset.link');
+    Route::get('backend/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('password.reset.form');
+    Route::post('backend/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.reset.process');
+});
+
 // Halaman user (role = 0)
 Route::middleware(['auth', 'user'])->group(function () {
     // Beranda (dashboard user)
@@ -61,11 +70,15 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::delete('/user/notifikasi/{id}', [UserController::class, 'deleteNotifikasi'])->name('backend.user.deletenotifikasi');
     Route::delete('/user/notifikasi', [UserController::class, 'deleteAllNotifikasi'])->name('backend.user.deleteallnotifikasi');
 
-    // Edit profil untuk user
-    Route::get('backend/user/profile/{id}/edit', [UserController::class, 'edit'])->name('backend.user.edit');
-    Route::put('backend/user/profile/{id}', [UserController::class, 'update'])->name('backend.user.update');
-    Route::get('backend/user/profile/{id}/changepassword', [UserController::class, 'gantiPassword'])->name('backend.user.gantipassword');
-    Route::put('backend/user/profile/{id}/changepassword', [UserController::class, 'updatePassword'])->name('backend.user.updatepassword');
+    // Edit profil untuk user (using uuid)
+    Route::get('backend/user/profile/{uuid}/edit', [UserController::class, 'edit'])->name('backend.user.edit');
+    Route::put('backend/user/profile/{uuid}', [UserController::class, 'update'])->name('backend.user.update');
+    Route::get('backend/user/profile/{uuid}/changepassword', [UserController::class, 'gantiPassword'])->name('backend.user.gantipassword');
+    Route::put('backend/user/profile/{uuid}/changepassword', [UserController::class, 'updatePassword'])->name('backend.user.updatepassword');
+
+    // Routes untuk change password dengan verifikasi password lama (uuid)
+    Route::get('backend/user/change-password/{uuid}', [ForgotPasswordController::class, 'showChangePasswordForm'])->name('password.forgot.form.change');
+    Route::put('backend/user/change-password/{uuid}', [ForgotPasswordController::class, 'changePassword'])->name('password.change.process');
 
     // Halaman aduan
     Route::post('backend/user/aduan', [UserController::class, 'storeAduan'])->name('backend.user.storeaduan');
@@ -136,11 +149,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('backend/admin/laporan/formuser', [AdminController::class, 'formUser'])->name('backend.laporan.formuser');
     Route::post('backend/admin/laporan/cetakuser', [AdminController::class, 'cetakUser'])->name('backend.laporan.cetakuser');
 
-    // Edit profil untuk admin
-    Route::get('backend/admin/user/{id}/edit', [AdminController::class, 'editUser'])->name('backend.admin.edit');
-    Route::put('backend/admin/user/{id}', [AdminController::class, 'updateUser'])->name('backend.admin.update');
-    Route::get('backend/admin/user/{id}/changepassword', [AdminController::class, 'gantiPassword'])->name('backend.admin.gantipassword');
-    Route::put('backend/admin/user/{id}/changepassword', [AdminController::class, 'updatePassword'])->name('backend.admin.updatepassword');
+    // Edit profil untuk admin (use uuid)
+    Route::get('backend/admin/user/{uuid}/edit', [AdminController::class, 'editUser'])->name('backend.admin.edit');
+    Route::put('backend/admin/user/{uuid}', [AdminController::class, 'updateUser'])->name('backend.admin.update');
+    Route::get('backend/admin/user/{uuid}/changepassword', [AdminController::class, 'gantiPassword'])->name('backend.admin.gantipassword');
+    Route::put('backend/admin/user/{uuid}/changepassword', [AdminController::class, 'updatePassword'])->name('backend.admin.updatepassword');
+
+    // Routes untuk change password dengan verifikasi password lama (admin, use uuid)
+    Route::get('backend/admin/change-password/{uuid}', [ForgotPasswordController::class, 'showChangePasswordForm'])->name('password.forgot.form.change.admin');
+    Route::put('backend/admin/change-password/{uuid}', [ForgotPasswordController::class, 'changePassword'])->name('password.change.process.admin');
 
     // CRUD Masyarakat
     Route::get('backend/admin/user/masyarakat', [AdminController::class, 'showUserMasyarakat'])->name('backend.user.masyarakat');
@@ -190,4 +207,8 @@ Route::middleware(['auth', 'petugas'])->prefix('backend/petugas')->group(functio
     Route::put('/update', [PetugasController::class, 'update'])->name('backend.petugas.update');
     Route::get('/gantipassword', [PetugasController::class, 'gantiPassword'])->name('backend.petugas.gantipassword');
     Route::put('/updatepassword', [PetugasController::class, 'updatePassword'])->name('backend.petugas.updatepassword');
+
+    // Routes untuk change password dengan verifikasi password lama (petugas, use uuid)
+    Route::get('/change-password/{uuid}', [ForgotPasswordController::class, 'showChangePasswordForm'])->name('password.forgot.form.change.petugas');
+    Route::put('/change-password/{uuid}', [ForgotPasswordController::class, 'changePassword'])->name('password.change.process.petugas');
 });

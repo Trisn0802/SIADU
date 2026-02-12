@@ -553,9 +553,9 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function editUser(string $id)
+    public function editUser(string $uuid)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('uuid', $uuid)->firstOrFail();
         return view('backend.v_admin.edit', [
             'judul' => 'Ubah User',
             'edit' => $user
@@ -565,9 +565,9 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateUser(Request $request, string $id)
+    public function updateUser(Request $request, string $uuid)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('uuid', $uuid)->firstOrFail();
 
         $rules = [
             'nama' => 'required|max:255',
@@ -621,9 +621,9 @@ class AdminController extends Controller
             ->with('success', 'Data berhasil diperbaharui');
     }
 
-    public function gantiPassword(string $id_user)
+    public function gantiPassword(string $uuid)
     {
-        $user = User::findOrFail($id_user);
+        $user = User::where('uuid', $uuid)->firstOrFail();
 
         // if (auth()->user()->role == 0 && auth()->user()->id != $user->id) {
         //     return redirect()->route('backend.user.edit', ['id' => auth()->user()->id])
@@ -631,7 +631,7 @@ class AdminController extends Controller
         // }
 
         if (auth()->user()->role == 0 && auth()->user()->id_user != $user->id_user) {
-            return redirect()->route('backend.user.error.404')
+            return redirect()->route('backend.error.404')
                 ->with('error', 'Anda tidak memiliki izin untuk mengedit profil ini.');
         }
 

@@ -106,7 +106,7 @@
                     <div class="border-top">
                         <div class="card-body mobile-btn">
                             <button type="submit" class="btn btn-primary auto-width-btn">Perbaharui</button>
-                            <a href="{{ route('backend.petugas.gantipassword') }}" class="btn btn-info auto-width-btn">Ganti Password</a>
+                            <a href="{{ route('password.forgot.form.change.petugas', ['id_user' => $edit->id_user]) }}" class="btn btn-info auto-width-btn">Ganti Password</a>
                             <a href="{{ route('backend.petugas.dashboard') }}" class="btn btn-secondary auto-width-btn">Kembali</a>
                         </div>
                     </div>

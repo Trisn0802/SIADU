@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\PassDebug;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -76,5 +77,11 @@ class DatabaseSeeder extends Seeder
             'no_hp' => '089575567890',
             'foto' => '',
         ]);
+
+        // Ensure existing users have UUID (for migrated installations)
+        User::whereNull('uuid')->get()->each(function ($u) {
+            $u->uuid = Str::uuid();
+            $u->save();
+        });
     }
 }

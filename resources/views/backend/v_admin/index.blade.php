@@ -69,7 +69,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('backend.admin.edit', $row->id_user) }}" title="Ubah Data">
+                                    <a href="{{ route('backend.admin.edit', $row->uuid) }}" title="Ubah Data">
                                         <button type="button" class="btn btn-cyan btn-sm">
                                             <i class="far fa-edit"></i> Ubah
                                         </button>

@@ -108,8 +108,10 @@
 
     <div id="main-wrapper">
 
+        @php $authUser = Auth::check() ? Auth::user() : null; @endphp
+
         <!-- Modal Notifikasi (role-based) -->
-        @if (Auth::user()->role == 0)
+        @if ($authUser && $authUser->role == 0)
             <div class="modal fade none-border" id="notifikasiUser">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -149,7 +151,7 @@
                     </div>
                 </div>
             </div>
-        @elseif (Auth::user()->role == 1)
+        @elseif ($authUser && $authUser->role == 1)
             <div class="modal fade none-border" id="notifikasiAdmin">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -189,7 +191,7 @@
                     </div>
                 </div>
             </div>
-        @elseif (Auth::user()->role == 2)
+        @elseif ($authUser && $authUser->role == 2)
             <div class="modal fade none-border" id="notifikasiPetugas">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -239,7 +241,7 @@
                         <i class="ti-menu ti-close">
                         </i>
                     </a>
-                    @if (Auth::user()->role == 0)
+                    @if ($authUser && $authUser->role == 0)
                         <a class="navbar-brand d-flex align-items-center" href="{{ route('backend.beranda.user') }}"
                             style="padding-left: 0px; padding-right: 0px;">
                             <span class="custom-logo-wrapper">
@@ -247,7 +249,7 @@
                             </span>
                             <span alt="homepage" class="light-logo font-weight-bold">SIADU</span>
                         </a>
-                    @elseif(Auth::user()->role == 1)
+                    @elseif($authUser && $authUser->role == 1)
                         <a class="navbar-brand d-flex align-items-center" href="{{ route('backend.beranda') }}"
                             style="padding-left: 0px; padding-right: 0px;">
                             <span class="custom-logo-wrapper">
@@ -255,7 +257,7 @@
                             </span>
                             <span alt="homepage" class="light-logo font-weight-bold">SIADU</span>
                         </a>
-                    @elseif(Auth::user()->role == 2)
+                    @elseif($authUser && $authUser->role == 2)
                         <a class="navbar-brand d-flex align-items-center"
                             href="{{ route('backend.petugas.dashboard') }}"
                             style="padding-left: 0px; padding-right: 0px;">
@@ -268,19 +270,19 @@
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
                         data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        @if (Auth::user()->role == 0)
+                        @if ($authUser && $authUser->role == 0)
                             <i class="ti-more" style="position: relative;">
                                 <span id="notifBadgeMobileUser"
                                     class="badge badge-danger notif-shape mobile-notif-size"
                                     style="display: none;">0</span>
                             </i>
-                        @elseif (Auth::user()->role == 1)
+                        @elseif ($authUser && $authUser->role == 1)
                             <i class="ti-more" style="position: relative;">
                                 <span id="notifBadgeMobileAdmin"
                                     class="badge badge-danger notif-shape mobile-notif-size"
                                     style="display: none;">0</span>
                             </i>
-                        @elseif (Auth::user()->role == 2)
+                        @elseif ($authUser && $authUser->role == 2)
                             <i class="ti-more" style="position: relative;">
                                 <span id="notifBadgeMobilePetugas"
                                     class="badge badge-danger notif-shape mobile-notif-size"
@@ -305,7 +307,7 @@
 
                         {{-- Notifikasi User --}}
                         <li class="nav-item dropdown">
-                            @if (Auth::user()->role == 0)
+                            @if ($authUser && $authUser->role == 0)
                                 <a class="nav-link" href="#" id="notifBellUser" data-toggle="modal"
                                     data-target="#notifikasiUser">
                                     <i class="bi bi-bell" style="font-size: 1.5rem; position: relative;">
@@ -313,7 +315,7 @@
                                             style="display:none;">0</span>
                                     </i>
                                 </a>
-                            @elseif (Auth::user()->role == 1)
+                            @elseif ($authUser && $authUser->role == 1)
                                 <a class="nav-link" href="#" id="notifBellAdmin" data-toggle="modal"
                                     data-target="#notifikasiAdmin">
                                     <i class="bi bi-bell" style="font-size: 1.5rem; position: relative;">
@@ -321,7 +323,7 @@
                                             style="display:none;">0</span>
                                     </i>
                                 </a>
-                            @elseif (Auth::user()->role == 2)
+                            @elseif ($authUser && $authUser->role == 2)
                                 <a class="nav-link" href="#" id="notifBellPetugas" data-toggle="modal"
                                     data-target="#notifikasiPetugas">
                                     <i class="bi bi-bell" style="font-size: 1.5rem; position: relative;">
@@ -337,30 +339,30 @@
                             {{-- <div> --}}
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic d-flex align-items-center"
                                 href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if (Auth::user()->foto)
-                                    <img src="{{ asset('storage/img-user/' . Auth::user()->foto) }}" alt="user"
+                                @if ($authUser && $authUser->foto)
+                                    <img src="{{ asset('storage/img-user/' . $authUser->foto) }}" alt="user"
                                         class="rounded-circle" width="31" style="margin-right: 7px;">
                                 @else
                                     <img src="{{ asset('storage/img-user/img-default.jpg') }}" alt="user"
                                         class="rounded-circle" width="31" style="margin-right: 7px;">
                                 @endif
 
-                                {{ Auth::user()->nama }}
+                                {{ $authUser ? $authUser->nama : '' }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                @if (Auth::user()->role == 0)
+                                @if ($authUser && $authUser->role == 0)
                                     <a class="dropdown-item"
-                                        href="{{ route('backend.user.edit', ['id' => Auth::user()->id_user]) }}">
+                                        href="{{ route('backend.user.edit', ['uuid' => $authUser->uuid]) }}">
                                         <i class="ti-user m-r-5 m-l-5"></i> Profil Saya
                                     </a>
-                                @elseif(Auth::user()->role == 1)
+                                @elseif($authUser && $authUser->role == 1)
                                     <a class="dropdown-item"
-                                        href="{{ route('backend.admin.edit', Auth::user()->id_user) }}">
+                                        href="{{ route('backend.admin.edit', $authUser->id_user) }}">
                                         <i class="ti-user m-r-5 m-l-5"></i> Profil Saya
                                     </a>
-                                @elseif(Auth::user()->role == 2)
+                                @elseif($authUser && $authUser->role == 2)
                                     <a class="dropdown-item"
-                                        href="{{ route('backend.petugas.edit', Auth::user()->id_user) }}">
+                                        href="{{ route('backend.petugas.edit', $authUser->id_user) }}">
                                         <i class="ti-user m-r-5 m-l-5"></i> Profil Saya
                                     </a>
                                 @endif
@@ -381,7 +383,7 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
                         {{-- MENU UNTUK USER --}}
-                        @if (Auth::user()->role == 0)
+                        @if ($authUser && $authUser->role == 0)
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                     href="{{ route('backend.beranda.user') }}" aria-expanded="false">
@@ -419,7 +421,7 @@
                         @endif
 
                         {{-- MENU UNTUK ADMIN --}}
-                        @if (Auth::user()->role == 1)
+                        @if ($authUser && $authUser->role == 1)
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                     href="{{ route('backend.beranda') }}" aria-expanded="false">
@@ -517,7 +519,7 @@
                         @endif
 
                         {{-- MENU UNTUK PETUGAS --}}
-                        @if (Auth::user()->role == 2)
+                        @if ($authUser && $authUser->role == 2)
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                     href="{{ route('backend.petugas.dashboard') }}" aria-expanded="false">
@@ -679,7 +681,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.15.0/echo.iife.js"></script>
     <script>
         @php
-            $role = Auth::user()->role;
+            $role = $authUser ? $authUser->role : null;
             $notifListId = $role == 0 ? 'notifListUser' : ($role == 1 ? 'notifListAdmin' : 'notifListPetugas');
             $notifBadgeId = 'notifBadge';
             $notifBadgeMobileId = $role == 0 ? 'notifBadgeMobileUser' : ($role == 1 ? 'notifBadgeMobileAdmin' : 'notifBadgeMobilePetugas');
@@ -743,13 +745,13 @@
                 }
             }
 
-            // Echo.channel('user-notif.{{ Auth::user()->id_user }}')
+            // Echo.channel('user-notif.{{ $authUser->id_user }}')
             //     .listen('UserNotification', (e) => {
             //         addNotifToList(e.title, e.message, e.url, e.id_notifikasi);
             //         playNotifSound();
             //     });
 
-            Echo.channel('user-notif.{{ Auth::user()->id_user }}')
+            Echo.channel('user-notif.{{ $authUser->id_user }}')
                 .listen('UserNotification', (e) => {
                     addNotifToList(e.title, e.message, e.url, e.id_notifikasi);
                     playNotifSound();

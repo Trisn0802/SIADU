@@ -12,15 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $table = 'user';
     protected $primaryKey = 'id_user';
     protected $fillable = [
-        'nama', 'nik', 'email', 'instansi', 'role', 'status', 'password', 'no_hp', 'foto', 'remember_token', 'otp_verified'
+        'nama', 'nik', 'email', 'instansi', 'role', 'status', 'password', 'no_hp', 'foto', 'remember_token', 'otp_verified', 'uuid', 'reset_token', 'reset_token_expires_at'
     ];
 
     protected $casts = [
@@ -30,6 +25,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Boot method untuk auto-generate UUID saat user dibuat
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = \Illuminate\Support\Str::uuid();
+            }
+        });
+    }
 
     // Relasi ke Pengaduan
     public function pengaduan()

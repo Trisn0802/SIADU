@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <form action="{{ route('backend.user.updatepassword', $edit->id_user) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('backend.user.updatepassword', $edit->uuid) }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="card-body">
@@ -63,7 +63,7 @@
                     <div class="border-top">
                         <div class="card-body">
                             <button type="submit" class="btn btn-info">Ganti Password</button>
-                            <a href="{{ route('backend.user.edit', ['id' => Auth::user()->id_user]) }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('backend.user.edit', ['uuid' => Auth::user()->uuid]) }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>
                 </form>
