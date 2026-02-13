@@ -637,9 +637,22 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Show change-password form for the currently authenticated admin (no uuid required).
+     */
+    public function gantiPasswordSelf()
+    {
+        $user = auth()->user();
+        return view('backend.v_admin.change_password', [
+            'judul' => 'Ganti Password',
+            'user' => $user
+        ]);
+    }
+
     public function updatePassword(Request $request, $uuid)
     {
         // find user by uuid (routes and forms now pass uuid)
+        /** @var \App\Models\User $user */
         $user = User::where('uuid', $uuid)->firstOrFail();
 
         // Validasi input
@@ -675,6 +688,14 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->route('backend.beranda')->with('success', 'Password berhasil diubah.');
+    }
+
+    /**
+     * Update password for currently authenticated admin (delegates to updatePassword)
+     */
+    public function updatePasswordSelf(Request $request)
+    {
+        return $this->updatePassword($request, auth()->user()->uuid);
     }
 
     /**

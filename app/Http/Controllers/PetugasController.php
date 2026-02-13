@@ -149,6 +149,18 @@ class PetugasController extends Controller
         ]);
     }
 
+    /**
+     * Show change-password form for the currently authenticated petugas (no uuid required).
+     */
+    public function gantiPasswordSelf()
+    {
+        $user = auth()->user();
+        return view('backend.v_petugas.change_password', [
+            'judul' => 'Ganti Password',
+            'user' => $user
+        ]);
+    }
+
     public function updatePassword(Request $request)
     {
         /** @var \App\Models\User $user */
@@ -173,6 +185,14 @@ class PetugasController extends Controller
         $user->update(['password' => $user->password]);
 
         return redirect()->route('backend.petugas.dashboard')->with('success', 'Password berhasil diubah.');
+    }
+
+    /**
+     * Update password for currently authenticated petugas (delegates to updatePassword)
+     */
+    public function updatePasswordSelf(Request $request)
+    {
+        return $this->updatePassword($request);
     }
 
     public function pengaduanList() {

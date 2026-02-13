@@ -155,6 +155,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('backend/admin/user/{uuid}/changepassword', [AdminController::class, 'gantiPassword'])->name('backend.admin.gantipassword');
     Route::put('backend/admin/user/{uuid}/changepassword', [AdminController::class, 'updatePassword'])->name('backend.admin.updatepassword');
 
+    // Convenience routes so admin can change their own password without supplying uuid
+    Route::get('backend/admin/gantipassword', [AdminController::class, 'gantiPasswordSelf'])->name('backend.admin.gantipassword.self');
+    Route::put('backend/admin/gantipassword', [AdminController::class, 'updatePasswordSelf'])->name('backend.admin.updatepassword.self');
+
     // Routes untuk change password dengan verifikasi password lama (admin, use uuid)
     Route::get('backend/admin/change-password/{uuid}', [ForgotPasswordController::class, 'showChangePasswordForm'])->name('password.forgot.form.change.admin');
     Route::put('backend/admin/change-password/{uuid}', [ForgotPasswordController::class, 'changePassword'])->name('password.change.process.admin');

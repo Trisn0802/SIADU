@@ -56,7 +56,7 @@
                     @elseif (auth()->user()->role == 1)
                         <a href="{{ route('backend.beranda') }}" class="btn btn-danger btn-rounded waves-effect waves-light m-b-40">Kembali ke home</a>
                     @elseif (auth()->user()->role == 2)
-                        <a href="{{ route('backend.beranda') }}" class="btn btn-danger btn-rounded waves-effect waves-light m-b-40">Kembali ke home</a>
+                        <a href="{{ route('backend.petugas.dashboard') }}" class="btn btn-danger btn-rounded waves-effect waves-light m-b-40">Kembali ke home</a>
                     @else
                         <a href="{{ route('backend.login') }}" class="btn btn-danger btn-rounded waves-effect waves-light m-b-40">Kembali ke login</a>
                     @endif

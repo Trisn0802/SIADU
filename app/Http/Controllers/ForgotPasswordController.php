@@ -120,6 +120,7 @@ class ForgotPasswordController extends Controller
 
     /**
      * Tampilkan form untuk ganti password (dengan verifikasi password lama)
+     * Render view yang sesuai berdasarkan role user
      */
     public function showChangePasswordForm($uuid, $userType = 'user')
     {
@@ -129,9 +130,8 @@ class ForgotPasswordController extends Controller
             return redirect()->back()->with('error', 'User tidak ditemukan');
         }
 
-        // Jika userType tidak diberikan sebagai query parameter, coba ambil dari route
+        // Tentukan userType berdasarkan role user jika tidak diberikan
         if (!$userType || $userType === 'user') {
-            // Tentukan userType berdasarkan role user
             if ($user->role == 1) {
                 $userType = 'admin';
             } elseif ($user->role == 2) {
@@ -141,7 +141,14 @@ class ForgotPasswordController extends Controller
             }
         }
 
-        return view('v_forgot_password.change_password', [
+        // Render view yang sesuai untuk setiap role
+        $viewName = match($userType) {
+            'admin' => 'backend.v_admin.change_password',
+            'petugas' => 'backend.v_petugas.change_password',
+            default => 'backend.v_user.change_password'
+        };
+
+        return view($viewName, [
             'judul' => 'Ganti Password',
             'user' => $user,
             'userType' => $userType,
@@ -151,6 +158,8 @@ class ForgotPasswordController extends Controller
 
     /**
      * Proses ganti password dengan verifikasi password lama
+     * NOTE: Form action mengarah ke AdminController/PetugasController/UserController routes, bukan function ini!
+     * Function ini hanya untuk public change-password routes tanpa login yang berhasil.
      */
     public function changePassword(Request $request, $uuid)
     {
