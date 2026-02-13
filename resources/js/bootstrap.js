@@ -30,8 +30,8 @@ const _echoOptions = {
 
 if (_useLocalPusher) {
     _echoOptions.wsHost = import.meta.env.VITE_PUSHER_HOST;
-    _echoOptions.wsPort = import.meta.env.VITE_PUSHER_PORT || 6001;
-    _echoOptions.wssPort = import.meta.env.VITE_PUSHER_PORT || 6001;
+    _echoOptions.wsPort = import.meta.env.VITE_PUSHER_PORT;
+    _echoOptions.wssPort = import.meta.env.VITE_PUSHER_PORT;
     _echoOptions.forceTLS = import.meta.env.VITE_PUSHER_SCHEME === 'https';
     _echoOptions.enabledTransports = ['ws', 'wss'];
     _echoOptions.disableStats = true; // don't call pusher.com stats endpoint
