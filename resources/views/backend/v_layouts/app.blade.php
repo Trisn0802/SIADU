@@ -71,7 +71,7 @@
     }
 
     .notif-shape {
-        border-radius: 100%;
+        /* border-radius: 100%; */
     }
 
     .mobile-notif-size {
