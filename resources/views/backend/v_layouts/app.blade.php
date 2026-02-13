@@ -677,8 +677,8 @@
         }
     </script>
 
-    {{-- <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.15.0/echo.iife.js"></script> --}}
+    <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.15.0/echo.iife.js"></script>
     <script>
         @php
             $role = $authUser ? $authUser->role : null;
