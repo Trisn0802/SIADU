@@ -1,7 +1,4 @@
-@extends('backend.v_layouts.app')
-
-@section('content')
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html dir="ltr" lang="en">
 
     <head>
@@ -346,4 +343,3 @@
     </body>
 
     </html>
-@endsection
