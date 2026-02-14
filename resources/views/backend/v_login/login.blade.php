@@ -63,8 +63,10 @@
                     </div>
                 </div>
             </div>
-            @endif
             <div class="col-lg-6 col-md-12 col-sm-12">
+            @else
+            <div class="col-lg-12 col-md-12 col-sm-12">
+            @endif
                 <div class="card border-primary mx-auto w-100" style="max-width:500px;">
                     <div class="card-header bg-primary text-white text-center">
                         <div class="mb-2">
@@ -214,6 +216,8 @@
                     </form>
                 </div>
             </div>
+            @if(!empty($announcement) && $announcement->is_active && !empty($announcement->content))
+            @endif
         </div>
         {{-- Footer tetap --}}
     @include('components.footer')
