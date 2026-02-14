@@ -1,4 +1,4 @@
-@extends('Backend.V_Layouts.App')
+@extends('backend.v_layouts.app')
 @section('content')
 <style>
                             .form-group .password-input-wrapper {

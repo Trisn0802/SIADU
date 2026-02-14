@@ -49,9 +49,22 @@
 </head>
 
 <body>
-    <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
         <div class="row justify-content-center">
-            <div class="col-lg-12 col-md-12 col-sm-12">
+            @if(!empty($announcement) && $announcement->is_active && !empty($announcement->content))
+            <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
+                <div class="card border-warning h-100">
+                    <div class="card-header bg-warning text-white text-center">
+                        <h5 class="mb-0 text-dark">Pemberitahuan</h5>
+                    </div>
+                    {{-- <div class="bg-dark" style="height: 14px;"></div> --}}
+                    <div class="card-body">
+                        <div class="announcement-content">{!! $announcement->content !!}</div>
+                    </div>
+                </div>
+            </div>
+            @endif
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="card border-primary mx-auto w-100" style="max-width:500px;">
                     <div class="card-header bg-primary text-white text-center">
                         <div class="mb-2">
@@ -108,6 +121,12 @@
                 @endif
 
                 <div class="card-body">
+                    {{-- @if(!empty($announcement) && $announcement->is_active && !empty($announcement->content))
+                        <div class="alert alert-info mb-4" style="background:#e7f3fe; border-color:#bee5eb; color:#0c5460;">
+                            <div class="fw-bold mb-2">Pemberitahuan</div>
+                            <div class="announcement-content">{!! $announcement->content !!}</div>
+                        </div>
+                    @endif --}}
                     <h3 class="text-center">Login</h3>
                     <form method="POST" action="{{ route('backend.login') }}">
                         @csrf

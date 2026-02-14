@@ -16,6 +16,7 @@ use App\Events\UserNotification;
 use App\Mail\NotifikasiUserMail;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use App\Models\Announcement;
 
 class AdminController extends Controller
 {
@@ -1054,6 +1055,47 @@ class AdminController extends Controller
         return view('backend.v_admin.form', ['judul' => 'Laporan Data Tindak Lanjut', 'action' => route('backend.laporan.cetaktindaklanjut')]);
     }
 
+    // Edit pengumuman
+    public function announcementEdit()
+    {
+        $announcement = Announcement::orderByDesc('published_at')->orderByDesc('updated_at')->first();
+        if (!$announcement) {
+            $announcement = new Announcement([
+                'title' => 'Pengumuman',
+                'content' => '',
+                'is_active' => true,
+            ]);
+        }
+        return view('backend.v_admin.announcement', [
+            'judul' => 'Pengumuman',
+            'announcement' => $announcement,
+        ]);
+    }
+
+    // Simpan pengumuman
+    public function announcementUpdate(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
+        ]);
+
+        $announcement = Announcement::first();
+        if (!$announcement) {
+            $announcement = new Announcement();
+        }
+        $announcement->title = $validated['title'] ?? 'Pengumuman';
+        $announcement->content = $validated['content'] ?? '';
+        $announcement->is_active = $request->boolean('is_active');
+        if (!$announcement->published_at && $announcement->is_active) {
+            $announcement->published_at = now();
+        }
+        $announcement->save();
+
+        return redirect()->route('backend.announcement.edit')->with('success', 'Pengumuman berhasil disimpan.');
+    }
+
     // Cetak laporan user
     public function cetakLaporanUser(Request $request) {
         $request->validate([
@@ -1128,6 +1170,39 @@ class AdminController extends Controller
             'data' => $data,
             'total' => $data->count()
         ]);
+    }
+
+    // Upload image untuk announcement (Summernote)
+    public function uploadAnnouncementImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:2048'
+        ]);
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $originalFileName = date('YmdHis') . '_' . uniqid() . '.' . $extension;
+            $directory = 'storage/img-announcement/';
+
+            // Buat folder jika belum ada
+            if (!file_exists(public_path($directory))) {
+                mkdir(public_path($directory), 0755, true);
+            }
+
+            // Upload file
+            $file->move(public_path($directory), $originalFileName);
+
+            return response()->json([
+                'success' => true,
+                'url' => asset($directory . $originalFileName)
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal upload gambar'
+        ], 400);
     }
 
 }

@@ -24,6 +24,8 @@
     <link href="{{ asset('backend/libs/datatables.net-bs4/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/dist/css/style.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    {{-- Summernote CSS (Local) --}}
+    <link href="{{ asset('summernote/summernote-bs4.min.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('backend/dist/css/sidebar.css') }}" rel="stylesheet"> --}}
     {{-- <link href="{{ asset('backend/dist/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
     <!--[if lt IE 9]>
@@ -514,8 +516,21 @@
                                             <span class="hide-menu">Laporan Tindak Lanjut</span>
                                         </a>
                                     </li>
+                                    {{-- <li class="sidebar-item">
+                                        <a class="sidebar-link" href="{{ route('backend.announcement.edit') }}">
+                                            <i class="mdi mdi-bullhorn"></i>
+                                            <span class="hide-menu">Pengumuman</span>
+                                        </a>
+                                    </li> --}}
                                 </ul>
                             </li>
+
+                            <li class="sidebar-item">
+                                        <a class="sidebar-link" href="{{ route('backend.announcement.edit') }}">
+                                            <i class="mdi mdi-bullhorn"></i>
+                                            <span class="hide-menu">Pengumuman</span>
+                                        </a>
+                                    </li>
                         @endif
 
                         {{-- MENU UNTUK PETUGAS --}}
@@ -665,17 +680,8 @@
         });
     </script>
 
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script>
-        const ckeditorElem = document.querySelector('#ckeditor');
-        if (ckeditorElem) {
-            ClassicEditor
-                .create(ckeditorElem)
-                .catch(error => {
-                    console.error(error);
-                });
-        }
-    </script>
+    {{-- Summernote JS (Local) --}}
+    <script src="{{ asset('summernote/summernote-bs4.min.js') }}"></script>
 
     <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.15.0/echo.iife.js"></script>

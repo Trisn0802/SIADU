@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Announcement;
 
 // Redirect root ke login
 Route::get('/', [LandingPageController::class, 'landingPage'])->name('landing.page');
@@ -34,6 +35,10 @@ Route::get('backend/v_error/404', function () {
 
 // Redirect root ke login
 Route::get('backend/login', [LoginController::class, 'loginBackend'])->name('backend.login');
+// Inject announcement to login view via route closure alternative (kept controller logic too)
+Route::get('/_announcement_preview', function(){
+    return optional(Announcement::where('is_active',1)->latest('published_at')->first())->content ?? '';
+});
 
 // Logout
 Route::post('backend/logout', [LoginController::class, 'logoutBackend'])->name('backend.logout')->middleware('auth');
@@ -139,6 +144,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('backend/admin/tindaklanjut/{id_tindak}/detail', [AdminController::class, 'detailTindakLanjut'])->name('backend.admin.detail_tindaklanjut');
     Route::delete('backend/admin/tindaklanjut/{id_tindak}', [AdminController::class, 'destroyTindakLanjut'])->name('backend.admin.tindaklanjut.destroy');
 
+    // Pengumuman (CKEditor)
+    Route::get('backend/admin/announcement', [AdminController::class, 'announcementEdit'])->name('backend.announcement.edit');
+    Route::post('backend/admin/announcement', [AdminController::class, 'announcementUpdate'])->name('backend.announcement.update');
+    Route::post('backend/admin/announcement/upload-image', [AdminController::class, 'uploadAnnouncementImage'])->name('backend.announcement.upload-image');
+
     // Resource routes
     Route::get('backend/admin/user', [AdminController::class, 'showUser'])->name('backend.user.showUser');
     Route::get('backend/admin/user/create', [AdminController::class, 'createUser'])->name('backend.user.create');
@@ -171,7 +181,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('backend/admin/laporan/user', [AdminController::class, 'formLaporanUser'])->name('backend.laporan.user');
     Route::get('backend/admin/laporan/petugasadmin', [AdminController::class, 'formLaporanPetugasAdmin'])->name('backend.laporan.petugasadmin');
     Route::get('backend/admin/laporan/pengaduan', [AdminController::class, 'formLaporanPengaduan'])->name('backend.laporan.pengaduan');
-    Route::get('backend/admin/laporan/tindaklanjut', [AdminController::class, 'formLaporanTindakLanjut'])->name(name: 'backend.laporan.tindaklanjut');
+    Route::get('backend/admin/laporan/tindaklanjut', [AdminController::class, 'formLaporanTindakLanjut'])->name('backend.laporan.tindaklanjut');
 
     // Cetak laporan
     Route::post('backend/admin/laporan/cetakuser', [AdminController::class, 'cetakLaporanUser'])->name('backend.laporan.cetakuser');

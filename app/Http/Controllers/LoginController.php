@@ -12,8 +12,10 @@ class LoginController extends Controller
 {
     public function loginBackend()
     {
+        $announcement = \App\Models\Announcement::where('is_active',1)->latest('published_at')->first();
         return view('backend.v_login.login', [
-        'judul' => 'Login',
+            'judul' => 'Login',
+            'announcement' => $announcement,
         ]);
     }
 
